@@ -24,10 +24,10 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "cli-table3": "^0.6.5",
+    "execa": "^6.0.0",
     "inquirer": "^8.2.0",
-    "inquirer-fuzzy-path": "^2.3.0",
-    "ora": "^8.0.1",
-    "execa": "^6.0.0"
+    "inquirer-autocomplete-prompt": "^3.0.1",
+    "ora": "^8.0.1"
   },
   "devDependencies": {
     "@types/inquirer": "^8.1.3",

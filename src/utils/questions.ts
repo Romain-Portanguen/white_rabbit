@@ -1,9 +1,10 @@
 import inquirer, { QuestionCollection } from 'inquirer';
-import inquirerFuzzyPath from 'inquirer-fuzzy-path';
+import inquirerAutocompletePrompt from 'inquirer-autocomplete-prompt';
 import { Answers } from '../@types/answers.js';
 import { getDependenciesByProjectType } from './dependencies.js';
+import { getDirectorySuggestions } from './path-suggestions.js';
 
-inquirer.registerPrompt('fuzzypath', inquirerFuzzyPath);
+inquirer.registerPrompt('autocomplete', inquirerAutocompletePrompt);
 
 const questions: QuestionCollection<Answers> = [
     {
@@ -12,14 +13,19 @@ const questions: QuestionCollection<Answers> = [
         message: 'What is the name of your project?',
     },
     {
-        type: 'fuzzypath',
+        type: 'autocomplete',
         name: 'destination',
-        itemType: 'directory',
-        rootPath: '.',
         message: 'Where do you want to create the project? (Specify the path)',
-        default: './',
-        suggestOnly: false,
-        depthLimit: 5
+        source: async (answers: Answers, input: string) => {
+            return getDirectorySuggestions(input);
+        },
+        default: './projects',
+        validate: (input) => {
+            if (!input) {
+                return 'Please specify a path';
+            }
+            return true;
+        }
     },
     {
         type: 'list',
