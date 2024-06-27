@@ -1,10 +1,25 @@
 {
-  "name": "white-rabbit",
+  "name": "white-rabbit-cli",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "start": "node dist/index.js"
+  "description": "A CLI tool to quickly initialize various types of projects.",
+  "main": "dist/index.js",
+  "bin": {
+    "white-rabbit": "dist/index.js"
   },
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [
+    "cli",
+    "project-initialization",
+    "typescript",
+    "nodejs"
+  ],
+  "author": "Romain Portanguen",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",
     "cli-table3": "^0.6.5",
