@@ -19,7 +19,7 @@
     "typescript",
     "nodejs"
   ],
-  "author": "Votre Nom",
+  "author": "Romain Portanguen",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",
