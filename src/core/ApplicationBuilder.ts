@@ -11,34 +11,26 @@ class ApplicationBuilder {
 
         const projectDir = join(destination, projectName);
 
-        // Initialize project (create folder, initialize git, etc.)
         console.log(`Initializing ${language} ${projectType} project: ${projectName} at ${projectDir}`);
 
-        // Create project using framework-specific commands
         await ProjectInitializer.createProject(projectDir, projectType, language);
 
-        // Install additional dependencies
         await DependencyInstaller.installDependencies(dependencies, packageManager, projectDir);
 
-        // Configure additional dependencies
         await DependencyConfigurer.configureDependencies(projectDir, dependencies, language);
 
-        // Initialize Git repository if selected
         if (initializeGit) {
             await GitInitializer.initializeGitRepository(projectDir);
         }
 
-        // Create .gitignore file
         await GitInitializer.createGitignoreFile(projectDir, projectType, language, dependencies);
 
-        // Additional steps like configuring tools can be added here
         if (additionalConfig) {
-            // Configure testing tools, linting tools, etc.
+            // Configure testing tools, linting tools, etc. { Feature to be added soon }
         }
 
         console.log(`Project ${projectName} setup completed.`);
 
-        // Change the current working directory to the project directory
         process.chdir(projectDir);
         console.log(`You are now in the project directory: ${process.cwd()}`);
     }
