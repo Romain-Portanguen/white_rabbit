@@ -1,8 +1,5 @@
-import { exec } from 'child_process';
+import execa from 'execa';
 import ora from 'ora';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export default class DependencyInstaller {
     static async installDependencies(dependencies: string[], packageManager: string, projectDir: string): Promise<void> {
@@ -14,7 +11,7 @@ export default class DependencyInstaller {
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
 
         try {
-            await execAsync(command, { cwd: projectDir });
+            await execa.command(command, { cwd: projectDir });
             spinner.succeed('Dependencies installed successfully');
         } catch (error: any) {
             spinner.fail(`Error installing dependencies: ${error.message}`);

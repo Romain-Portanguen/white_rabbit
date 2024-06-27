@@ -1,7 +1,7 @@
-import QuestionManager from '../utils/QuestionManager.js';
-import ApplicationBuilder from '../core/ApplicationBuilder.js';
-import Logger from '../utils/Logger.js';
-import { Answers } from '../@types/Answers.js';
+import QuestionManager from '../utils/question-manager.js';
+import ApplicationBuilder from '../core/application-builder.js';
+import Logger from '../utils/logger.js';
+import { Answers } from '../@types/answers.js';
 
 class CLIManager {
     private questionManager: QuestionManager;
@@ -18,15 +18,15 @@ class CLIManager {
         
         if (answers.confirm) {
             await this.applicationBuilder.buildApplication(answers);
-            Logger.log('Application created successfully!');
+            Logger.log('Application created successfully, happy hacking! 🚀');
         } else {
-            Logger.log('Installation cancelled by user.');
+            Logger.log('Installation cancelled by user 😢');
         }
     }
 
     private printWelcomeMessage(): void {
         Logger.printAsciiArt();
-        Logger.log('Welcome to White Rabbit CLI!');
+        Logger.log('Welcome to White Rabbit CLI 🐇');
     }
 }
 
