@@ -1,4 +1,4 @@
-![white_rabbit](https://socialify.git.ci/Romain-Portanguen/white_rabbit/image?font=Raleway&language=1&name=1&owner=1&pattern=Charlie%20Brown&theme=Dark)
+![](https://github.com/Romain-Portanguen/white_rabbit/blob/7bc4fe9e4da83071f77bf5b8587b02c454cab923/src/public/assets/WhiteRabbit_Banner.png)
 
 <h3 align="center">
 White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creation of web dev projects.
