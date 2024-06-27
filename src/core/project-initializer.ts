@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execaCommand } from 'execa';
 import ora from 'ora';
 
 export default class ProjectInitializer {
@@ -29,7 +29,7 @@ export default class ProjectInitializer {
         }
 
         try {
-            await execa.command(command);
+            await execaCommand(command);
             spinner.succeed(`Project ${projectType} created successfully at ${projectDir}`);
         } catch (error: any) {
             spinner.fail(`Error creating project: ${error.message}`);

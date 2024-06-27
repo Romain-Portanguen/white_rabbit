@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execaCommand } from 'execa';
 import ora from 'ora';
 
 export default class DependencyInstaller {
@@ -11,7 +11,7 @@ export default class DependencyInstaller {
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
 
         try {
-            await execa.command(command, { cwd: projectDir });
+            await execaCommand(command, { cwd: projectDir });
             spinner.succeed('Dependencies installed successfully');
         } catch (error: any) {
             spinner.fail(`Error installing dependencies: ${error.message}`);
