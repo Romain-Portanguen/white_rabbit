@@ -1,17 +1,14 @@
-import { exec } from 'child_process';
+import execa from 'execa';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import ora from 'ora';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export default class GitInitializer {
     static async initializeGitRepository(projectDir: string): Promise<void> {
         const spinner = ora('Initializing Git repository...').start();
 
         try {
-            await execAsync('git init', { cwd: projectDir });
+            await execa('git', ['init'], { cwd: projectDir });
             spinner.succeed('Git repository initialized successfully');
         } catch (error: any) {
             spinner.fail(`Error initializing Git repository: ${error.message}`);

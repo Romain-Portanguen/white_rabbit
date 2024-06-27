@@ -1,6 +1,6 @@
 export interface Answers {
-  additionalConfig: boolean;
   confirm: boolean;
+  confirmSummary?: boolean;
   dependencies: string[];
   destination: string;
   formattingTools: string[];

@@ -1,10 +1,7 @@
-import { exec } from 'child_process';
+import execa from 'execa';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import ora from 'ora';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export default class DependencyConfigurer {
     static async configureDependencies(projectDir: string, dependencies: string[], language: string): Promise<void> {
@@ -14,7 +11,7 @@ export default class DependencyConfigurer {
             const spinner = ora('Configuring Tailwind CSS...').start();
 
             try {
-                await execAsync(`npx tailwindcss init -p`, { cwd: projectDir });
+                await execa('npx', ['tailwindcss', 'init', '-p'], { cwd: projectDir });
 
                 const tailwindConfig = `
                   module.exports = {

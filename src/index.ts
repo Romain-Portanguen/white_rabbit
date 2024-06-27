@@ -1,4 +1,4 @@
-import CLIManager from './cli/CLIManager.js';
+import CLIManager from './cli/cli-manager.js';
 
 const whiteRabbit = new CLIManager();
 

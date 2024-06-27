@@ -1,8 +1,5 @@
-import { exec } from 'child_process';
+import execa from 'execa';
 import ora from 'ora';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export default class ProjectInitializer {
     static async createProject(projectDir: string, projectType: string, language: string): Promise<void> {
@@ -32,7 +29,7 @@ export default class ProjectInitializer {
         }
 
         try {
-            await execAsync(command);
+            await execa.command(command);
             spinner.succeed(`Project ${projectType} created successfully at ${projectDir}`);
         } catch (error: any) {
             spinner.fail(`Error creating project: ${error.message}`);
