@@ -24,24 +24,24 @@ class QuestionManager {
             },
             {
                 type: 'list',
-                name: 'projectType',
-                message: 'Which type of project do you want to initialize?',
-                choices: [
-                    'React',
-                    'Angular',
-                    'Node.js',
-                    'Vue.js'
-                ]
-            },
-            {
-                type: 'list',
                 name: 'language',
                 message: 'Which language do you want to use?',
                 choices: [
                     'JavaScript',
                     'TypeScript'
                 ],
-                when: (answers) => answers.projectType !== 'Node.js' // Node.js projects are typically JavaScript
+                when: (answers) => answers.projectType !== 'Node.js'
+            },
+            {
+                type: 'list',
+                name: 'projectType',
+                message: 'Which type of project do you want to initialize?',
+                choices: [
+                    'React',
+                    'Angular',
+                    'Vue.js',
+                    'Node.js'
+                ]
             },
             {
                 type: 'checkbox',

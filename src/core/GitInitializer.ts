@@ -17,36 +17,36 @@ export default class GitInitializer {
 
     static async createGitignoreFile(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
         const gitignoreContent = `
-# Node modules
-node_modules
+            # Node modules
+            node_modules
 
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+            # Logs
+            logs
+            *.log
+            npm-debug.log*
+            yarn-debug.log*
+            yarn-error.log*
 
-# Dependency directories
-jspm_packages
+            # Dependency directories
+            jspm_packages
 
-# Typescript
-*.tsbuildinfo
+            # Typescript
+            *.tsbuildinfo
 
-# Production
-/build
+            # Production
+            /build
 
-# Misc
-.DS_Store
-.env
+            # Misc
+            .DS_Store
+            .env
 
-# Testing
-/coverage
+            # Testing
+            /coverage
 
-# Tailwind CSS
-tailwind.config.js
-postcss.config.js
-`;
+            # Tailwind CSS
+            tailwind.config.js
+            postcss.config.js
+        `;
 
         try {
             await fs.writeFile(join(projectDir, '.gitignore'), gitignoreContent);
