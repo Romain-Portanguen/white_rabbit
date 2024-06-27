@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import CLIManager from './cli/cli-manager.js';
 
 const whiteRabbit = new CLIManager();
