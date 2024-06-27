@@ -46,7 +46,7 @@ const questions: QuestionCollection<Answers> = [
         type: 'checkbox',
         name: 'dependencies',
         message: 'Which additional dependencies do you want to install?',
-        choices: (answers) => getDependenciesByProjectType(answers.projectType)
+        choices: (answers) => getDependenciesByProjectType(answers.projectType, answers.language || 'JavaScript')
     },
     {
         type: 'list',
