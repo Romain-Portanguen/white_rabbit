@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import ora from 'ora';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);
@@ -10,6 +11,8 @@ export default class DependencyConfigurer {
         const srcDir = join(projectDir, 'src');
 
         if (dependencies.includes('tailwindcss')) {
+            const spinner = ora('Configuring Tailwind CSS...').start();
+
             try {
                 await execAsync(`npx tailwindcss init -p`, { cwd: projectDir });
 
@@ -48,10 +51,11 @@ export default class DependencyConfigurer {
                 `;
 
                 await fs.appendFile(indexCssPath, indexCssContent);
-                console.log('Tailwind CSS configured successfully');
-              } catch (error: any) {
-                  throw new Error(`Error configuring Tailwind CSS: ${error.message}`);
-              }
+                spinner.succeed('Tailwind CSS configured successfully');
+            } catch (error) {
+                spinner.fail('Error configuring Tailwind CSS');
+                throw error;
+            }
         }
     }
 }
