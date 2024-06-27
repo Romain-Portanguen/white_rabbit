@@ -24,7 +24,7 @@ White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creatio
 
 - Initialize projects for React, Angular, Node.js, and Vue.js.
 - Choose between JavaScript and TypeScript.
-- Install additional dependencies such as Redux, Axios, Styled-Components, and Tailwind CSS.
+- Install additional dependencies.
 - Select your preferred package manager: npm, yarn, or pnpm.
 - Configure testing tools like Jest, Mocha, and Chai.
 - Set up linting and formatting tools including ESLint, TSLint, and Prettier.
