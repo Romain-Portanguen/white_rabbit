@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import ora from 'ora';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);
@@ -10,10 +11,13 @@ export default class DependencyInstaller {
         }
 
         const command = this.getInstallCommand(dependencies, packageManager);
+        const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
+
         try {
             await execAsync(command, { cwd: projectDir });
-            console.log('Dependencies installed successfully');
+            spinner.succeed('Dependencies installed successfully');
         } catch (error: any) {
+            spinner.fail(`Error installing dependencies: ${error.message}`);
             throw new Error(`Error installing dependencies: ${error.message}`);
         }
     }

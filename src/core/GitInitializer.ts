@@ -1,21 +1,27 @@
 import { exec } from 'child_process';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import ora from 'ora';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
 export default class GitInitializer {
     static async initializeGitRepository(projectDir: string): Promise<void> {
+        const spinner = ora('Initializing Git repository...').start();
+
         try {
             await execAsync('git init', { cwd: projectDir });
-            console.log('Git repository initialized successfully');
+            spinner.succeed('Git repository initialized successfully');
         } catch (error: any) {
+            spinner.fail(`Error initializing Git repository: ${error.message}`);
             throw new Error(`Error initializing Git repository: ${error.message}`);
         }
     }
 
     static async createGitignoreFile(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
+        const spinner = ora('Creating .gitignore file...').start();
+
         const gitignoreContent = `
             # Node modules
             node_modules
@@ -25,20 +31,36 @@ export default class GitInitializer {
             *.log
             npm-debug.log*
             yarn-debug.log*
-            yarn-error.log*
+            pnpm-debug.log*
 
             # Dependency directories
-            jspm_packages
+            jspm_packages/
 
-            # Typescript
+            # Build output
+            dist/
+            build/
+            public/
+            output/
+
+            # TypeScript
             *.tsbuildinfo
 
-            # Production
-            /build
+            # Static folder for Next.js
+            /static
 
-            # Misc
+            # Angular build files
+            angular.json
+            *.angular-cli.json
+            *.aot.ts
+            *.aot.metadata.json
+
+            # Miscellaneous
             .DS_Store
             .env
+            *.env.local
+            *.env.development.local
+            *.env.test.local
+            *.env.production.local
 
             # Testing
             /coverage
@@ -50,8 +72,9 @@ export default class GitInitializer {
 
         try {
             await fs.writeFile(join(projectDir, '.gitignore'), gitignoreContent);
-            console.log('.gitignore file created successfully');
+            spinner.succeed('.gitignore file created successfully');
         } catch (error: any) {
+            spinner.fail('Error creating .gitignore file');
             throw new Error(`Error creating .gitignore file: ${error.message}`);
         }
     }
