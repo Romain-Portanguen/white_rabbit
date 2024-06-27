@@ -1,11 +1,17 @@
-# White Rabbit CLI
+![white_rabbit](https://socialify.git.ci/Romain-Portanguen/white_rabbit/image?font=Raleway&language=1&name=1&owner=1&pattern=Charlie%20Brown&theme=Dark)
 
-White Rabbit CLI is a command-line interface (CLI) tool that allows users to quickly create and initialize various types of projects such as React, Angular, Vue.js and Node.js. The CLI provides a guided setup with customizable options for project dependencies, testing tools, linting tools, and more.
+<h3 align="center">
+White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creation of web dev projects.
+</h3>
 
-## Table of Contents
+<p align="center">
+<img src="https://img.shields.io/badge/-Typescript-05122A?style=plastic&amp;logo=Typescript&amp;color=2B343B" alt="shields">
+</p>
 
-- [White Rabbit CLI](#white-rabbit-cli)
-  - [Table of Contents](#table-of-contents)
+<hr>
+
+## 📑 Table of Contents
+
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -14,7 +20,7 @@ White Rabbit CLI is a command-line interface (CLI) tool that allows users to qui
   - [Contributing](#contributing)
   - [License](#license)
 
-## Features
+## 🔬 Features
 
 - Initialize projects for React, Angular, Node.js, and Vue.js.
 - Choose between JavaScript and TypeScript.
@@ -25,7 +31,7 @@ White Rabbit CLI is a command-line interface (CLI) tool that allows users to qui
 - Optionally initialize a Git repository with a pre-configured `.gitignore` file.
 - Autocompletion for directory paths during setup.
 
-## Installation
+## 🚧 Installation
 
 To install White Rabbit CLI, ensure you have Node.js and npm installed, then run:
 
@@ -34,7 +40,7 @@ npm install -g white-rabbit-cli
 
 ```
 
-## Usage
+## 🔧 Usage
 
 To create a new project, run:
 
@@ -57,7 +63,7 @@ Follow the prompts to configure your project. You will be asked to provide the f
 - Additional configuration for tools.
 - Initialize Git repository.
 
-## Example
+## 👀 Example
 
 ```sh
 
@@ -90,7 +96,7 @@ You are now in the project directory: /path/to/projects/my-awesome-app
 
 ```
 
-## Options
+## ⚙️ Options
 
 White Rabbit CLI provides the following options during setup:
 
@@ -103,7 +109,7 @@ Linting Tools: Configure linting tools including ESLint, TSLint, and Prettier.
 Formatting Tools: Set up formatting tools like Prettier.
 Initialize Git: Option to initialize a Git repository with a pre-configured .gitignore file.
 
-## Contributing
+## 👨🏻‍💻 Contributing
 
 We welcome contributions to improve White Rabbit CLI! To contribute, follow these steps:
 
@@ -114,7 +120,6 @@ Push to the branch: git push origin my-feature-branch
 Submit a pull request.
 Please make sure your code follows the project's coding standards and includes tests where applicable.
 
-## License
+## 📄 Licence
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is distributed under the MIT license.
