@@ -1,11 +1,12 @@
 ![](https://github.com/Romain-Portanguen/white_rabbit/blob/7bc4fe9e4da83071f77bf5b8587b02c454cab923/src/public/assets/WhiteRabbit_Banner.png)
 
 <h3 align="center">
-White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creation of web dev projects.
+Command-line tool (CLI) designed to facilitate the creation of web dev projects.
 </h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/-Typescript-05122A?style=plastic&amp;logo=Typescript&amp;color=2B343B" alt="shields">
+<img src="https://img.shields.io/badge/-Beta-05122A?style=plastic&amp;logo=Beta&amp;color=2B343B" alt="shields">
 </p>
 
 <hr>
@@ -16,7 +17,7 @@ White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creatio
 
 <p align="center">
 <strong>White Rabbit CLI</strong> is still in beta version and malfunctions may occur. </br>
-I am actively working on optimising the whole process of initialising the project. Thank you for your understanding. 🩵
+I am actively working on optimising the whole process of initialising the project. Thank you for your understanding.
 </p>
 
 ## 📑 Table of Contents
