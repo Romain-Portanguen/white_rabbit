@@ -12,11 +12,11 @@ export const printSummary = (answers: Answers): void => {
         ['Destination', answers.destination],
         ['Project Type', answers.projectType],
         ['Language', answers.language || 'JavaScript'],
-        ['Dependencies', answers.dependencies.join(', ') || 'None'],
+        ['Dependencies', answers.dependencies?.join(', ') || 'None'],
         ['Package Manager', answers.packageManager],
-        ['Testing Tools', answers.testingTools.join(', ') || 'None'],
-        ['Linting Tools', answers.lintingTools.join(', ') || 'None'],
-        ['Formatting Tools', answers.formattingTools.join(', ') || 'None'],
+        ['Testing Tools', answers.testingTools?.join(', ') || 'None'],
+        ['Linting Tools', answers.lintingTools?.join(', ') || 'None'],
+        ['Formatting Tools', answers.formattingTools?.join(', ') || 'None'],
         ['Initialize Git', answers.initializeGit ? 'Yes' : 'No']
     );
 

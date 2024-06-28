@@ -1,14 +1,16 @@
-import { execa } from 'execa';
+import { execaCommand } from 'execa';
+import ora from 'ora';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import ora from 'ora';
 
 export default class GitInitializer {
     static async initializeGitRepository(projectDir: string): Promise<void> {
         const spinner = ora('Initializing Git repository...').start();
 
         try {
-            await execa('git', ['init'], { cwd: projectDir });
+            await execaCommand('git --version');
+            
+            await execaCommand('git init', { cwd: projectDir });
             spinner.succeed('Git repository initialized successfully');
         } catch (error: any) {
             spinner.fail(`Error initializing Git repository: ${error.message}`);
@@ -20,51 +22,51 @@ export default class GitInitializer {
         const spinner = ora('Creating .gitignore file...').start();
 
         const gitignoreContent = `
-            # Node modules
-            node_modules
+# Node modules
+node_modules
 
-            # Logs
-            logs
-            *.log
-            npm-debug.log*
-            yarn-debug.log*
-            pnpm-debug.log*
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-            # Dependency directories
-            jspm_packages/
+# Dependency directories
+jspm_packages/
 
-            # Build output
-            dist/
-            build/
-            public/
-            output/
+# Build output
+dist/
+build/
+public/
+output/
 
-            # TypeScript
-            *.tsbuildinfo
+# TypeScript
+*.tsbuildinfo
 
-            # Static folder for Next.js
-            /static
+# Static folder for Next.js
+/static
 
-            # Angular build files
-            angular.json
-            *.angular-cli.json
-            *.aot.ts
-            *.aot.metadata.json
+# Angular build files
+angular.json
+*.angular-cli.json
+*.aot.ts
+*.aot.metadata.json
 
-            # Miscellaneous
-            .DS_Store
-            .env
-            *.env.local
-            *.env.development.local
-            *.env.test.local
-            *.env.production.local
+# Miscellaneous
+.DS_Store
+.env
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
 
-            # Testing
-            /coverage
+# Testing
+/coverage
 
-            # Tailwind CSS
-            tailwind.config.js
-            postcss.config.js
+# Tailwind CSS
+tailwind.config.js
+postcss.config.js
         `;
 
         try {
