@@ -10,6 +10,15 @@ White Rabbit CLI is a command-line tool (CLI) designed to facilitate the creatio
 
 <hr>
 
+<h4 align=center>
+🚨 Disclaimer 🚨
+</h4>
+
+<p align="center">
+<strong>White Rabbit CLI</strong> is still in beta version and malfunctions may occur. </br>
+I am actively working on optimising the whole process of initialising the project. Thank you for your understanding. 🩵
+</p>
+
 ## 📑 Table of Contents
 
 - [📑 Table of Contents](#-table-of-contents)
