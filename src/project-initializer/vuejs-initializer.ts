@@ -9,11 +9,9 @@ async function createVueJsProject(projectDir: string, language: string): Promise
     const spinner = ora('Creating Vue.js project...').start();
 
     try {
-        console.log(`Running command: npm init vue@latest ${projectName} -- --default`);
         await execaCommand(`npm init vue@latest ${projectName} -- --default`, { cwd: resolve(absoluteProjectDir, '..') });
 
         if (language === 'TypeScript') {
-            console.log(`Running command: npm install -D typescript @vue/tsconfig vue-tsc`);
             await execaCommand('npm install -D typescript @vue/tsconfig vue-tsc', { cwd: absoluteProjectDir });
             
             const tsconfigContent = `{
