@@ -108,10 +108,9 @@ const questions: QuestionCollection<Answers> = [
         name: 'testingTools',
         message: 'Which testing tools do you want to use?',
         choices: [
-            'Jest',
-            'Mocha',
-            'Chai',
-            'Testing Library'
+            'jest',
+            'mocha',
+            '@testing-library/react'
         ],
         when: (answers) => answers.installTestingTools
     },

@@ -1,12 +1,16 @@
-import { createProject } from '../project-initializer/index.js';
+import { createProject } from './project-initializer/index.js';
+import { generateESLintConfig } from '../utils/configurations/eslint-config.js';
+import { generatePrettierConfig } from '../utils/configurations/prettier-config.js';
+import { generateJestConfig } from '../utils/configurations/jest-config.js';
+import { generateMochaConfig } from '../utils/configurations/mocha-config.js';
+import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config.js';
 import DependencyInstaller from './dependency-installer.js';
 import DependencyConfigurer from './dependency-configurer.js';
 import GitInitializer from './git-initializer.js';
-import ConfigurationGenerator from '../utils/configuration.js';
 import { Answers } from '../@types/answers.js';
 import { join } from 'path';
-import { promises as fs } from 'fs';
 import ora from 'ora';
+import { promises as fs } from 'fs';
 
 class ApplicationBuilder {
     async buildApplication(answers: Answers): Promise<void> {
@@ -43,24 +47,23 @@ class ApplicationBuilder {
 
             if (answers.installLintingTools && lintingTools) {
                 if (lintingTools.length > 0) {
-                    await ConfigurationGenerator.generateESLintConfig(projectDir);
+                    await generateESLintConfig(projectDir);
                 }
             }
 
             if (answers.installFormattingTools && formattingTools) {
                 if (formattingTools.length > 0) {
-                    await ConfigurationGenerator.generatePrettierConfig(projectDir);
+                    await generatePrettierConfig(projectDir);
                 }
             }
 
             if (answers.installTestingTools && testingTools) {
                 if (testingTools.length > 0) {
-                    await DependencyInstaller.installDependencies(testingTools, packageManager, projectDir);
-                    await this.configureTestingTools(testingTools, projectDir);
+                    await this.configureTestingTools(testingTools, packageManager, projectDir);
                 }
             }
 
-            if (initializeGit) {
+            if (initializeGit && projectType !== 'Angular') {
                 await this.setupGit(projectDir, projectType, language, dependencies || []);
             }
 
@@ -73,15 +76,25 @@ class ApplicationBuilder {
         }
     }
 
-    private async configureTestingTools(testingTools: string[], projectDir: string): Promise<void> {
-        if (testingTools.includes('Jest')) {
-            await ConfigurationGenerator.generateJestConfig(projectDir);
-        }
-        if (testingTools.includes('Mocha') || testingTools.includes('Chai')) {
-            await ConfigurationGenerator.generateMochaConfig(projectDir);
-        }
-        if (testingTools.includes('Testing Library')) {
-            await ConfigurationGenerator.generateTestingLibraryConfig(projectDir);
+    private async configureTestingTools(testingTools: string[], packageManager: string, projectDir: string): Promise<void> {
+        const testingDependenciesMap: { [key: string]: string[] } = {
+            'jest': ['jest', 'ts-jest', '@types/jest'],
+            'mocha': ['mocha', 'chai', '@types/mocha', '@types/chai', 'ts-node'],
+            '@testing-library/react': ['@testing-library/react', '@testing-library/jest-dom', '@testing-library/user-event']
+        };
+
+        for (const tool of testingTools) {
+            const dependenciesToInstall = testingDependenciesMap[tool];
+            if (dependenciesToInstall) {
+                await DependencyInstaller.installDependencies(dependenciesToInstall, packageManager, projectDir);
+                if (tool === 'jest') {
+                    await generateJestConfig(projectDir);
+                } else if (tool === 'mocha') {
+                    await generateMochaConfig(projectDir);
+                } else if (tool === '@testing-library/react') {
+                    await generateTestingLibraryConfig(projectDir);
+                }
+            }
         }
     }
 
@@ -100,6 +113,7 @@ class ApplicationBuilder {
     private async changeToProjectDirectory(projectDir: string): Promise<void> {
         try {
             await fs.access(projectDir);
+            process.chdir(projectDir);
             console.log(`You are now in the project directory: ${process.cwd()}`);
         } catch (error: any) {
             console.error(`Error changing directory: ${error.message}`);
