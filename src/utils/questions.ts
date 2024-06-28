@@ -49,20 +49,59 @@ const questions: QuestionCollection<Answers> = [
         when: (answers) => answers.projectType !== 'Node.js'
     },
     {
+        type: 'confirm',
+        name: 'installDependencies',
+        message: 'Do you want to install additional dependencies?',
+        default: true
+    },
+    {
         type: 'checkbox',
         name: 'dependencies',
         message: 'Which additional dependencies do you want to install?',
-        choices: (answers) => getDependenciesByProjectType(answers.projectType, answers.language || 'JavaScript')
+        choices: (answers) => getDependenciesByProjectType(answers.projectType, answers.language || 'JavaScript'),
+        when: (answers) => answers.installDependencies
     },
     {
-        type: 'list',
-        name: 'packageManager',
-        message: 'Which package manager do you want to use?',
+        type: 'confirm',
+        name: 'installLintingTools',
+        message: 'Do you want to install linting tools?',
+        default: true,
+        when: (answers) => answers.installDependencies
+    },
+    {
+        type: 'checkbox',
+        name: 'lintingTools',
+        message: 'Which linting tools do you want to use?',
         choices: [
-            'npm',
-            'yarn',
-            'pnpm'
-        ]
+            'ESLint',
+            'TSLint',
+            'Prettier'
+        ],
+        when: (answers) => answers.installLintingTools
+    },
+    {
+        type: 'confirm',
+        name: 'installFormattingTools',
+        message: 'Do you want to install formatting tools?',
+        default: true,
+        when: (answers) => answers.installDependencies
+    },
+    {
+        type: 'checkbox',
+        name: 'formattingTools',
+        message: 'Which formatting tools do you want to use?',
+        choices: [
+            'Prettier',
+            'ESLint'
+        ],
+        when: (answers) => answers.installFormattingTools
+    },
+    {
+        type: 'confirm',
+        name: 'installTestingTools',
+        message: 'Do you want to install testing tools?',
+        default: true,
+        when: (answers) => answers.installDependencies
     },
     {
         type: 'checkbox',
@@ -73,31 +112,18 @@ const questions: QuestionCollection<Answers> = [
             'Mocha',
             'Chai',
             'Testing Library'
-        ]
+        ],
+        when: (answers) => answers.installTestingTools
     },
     {
-        type: 'checkbox',
-        name: 'lintingTools',
-        message: 'Which linting tools do you want to use?',
+        type: 'list',
+        name: 'packageManager',
+        message: 'Which package manager do you want to use?',
         choices: [
-            'ESLint',
-            'TSLint',
-            'Prettier'
+            'npm',
+            'yarn',
+            'pnpm'
         ]
-    },
-    {
-        type: 'checkbox',
-        name: 'formattingTools',
-        message: 'Which formatting tools do you want to use?',
-        choices: [
-            'Prettier',
-            'ESLint'
-        ]
-    },
-    {
-        type: 'confirm',
-        name: 'additionalConfig',
-        message: 'Do you want to add additional configuration for tools?'
     },
     {
         type: 'confirm',
