@@ -87,7 +87,14 @@ class ApplicationBuilder {
 
     private async setupGit(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
         await GitInitializer.initializeGitRepository(projectDir);
-        await GitInitializer.createGitignoreFile(projectDir, projectType, language, dependencies);
+
+        const gitignorePath = join(projectDir, '.gitignore');
+        try {
+            await fs.access(gitignorePath);
+            console.log('.gitignore file already exists. Keeping the existing file.');
+        } catch {
+            await GitInitializer.createGitignoreFile(projectDir, projectType, language, dependencies);
+        }
     }
 
     private async changeToProjectDirectory(projectDir: string): Promise<void> {
