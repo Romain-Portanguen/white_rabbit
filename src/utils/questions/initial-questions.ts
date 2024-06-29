@@ -31,7 +31,9 @@ const initialQuestions: DistinctQuestion<Answers>[] = [
         message: 'Which language do you want to use?',
         choices: ['JavaScript', 'TypeScript'],
         default: 'JavaScript',
-        when: (answers) => answers.projectType !== 'Angular'
+        when: (answers) => {
+            return answers.projectType !== 'Angular';
+        }
     }
 ];
 
