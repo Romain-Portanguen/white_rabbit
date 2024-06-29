@@ -86,49 +86,44 @@ $ white-rabbit
   \ V  V /| | | | | ||  __/ | | | (_| | |_) | |_) | | |_
    \_/\_/ |_| |_|_|\__\___| |_|  \__,_|_.__/|_.__/|_|\__|
 
-Welcome to White Rabbit CLI!
-? What is the name of your project? my-awesome-app
-? Where do you want to create the project? (Specify the path) ./projects
+✔ Welcome to White Rabbit CLI 🐇
+? What is the name of your project? rabbit-test
+? Where do you want to create the project? (Specify the path) ../white-rabbit-gen
 ? Which type of project do you want to initialize? React
 ? Which language do you want to use? TypeScript
-? Which additional dependencies do you want to install? redux, axios, styled-components
-? Which package manager do you want to use? yarn
-? Which testing tools do you want to use? Jest
-? Which linting tools do you want to use? ESLint, Prettier
+? Do you want to install additional dependencies? Yes
+? Which additional dependencies do you want to install? @types/react-dom, @types/react-redux, @types/react, react-icons, react-redux, react-router-dom, react-toastify, redux, styled-components, yup, prop-types
+? Do you want to install linting tools? Yes
+? Which linting tools do you want to use? ESLint
+? Do you want to install formatting tools? Yes
 ? Which formatting tools do you want to use? Prettier
-? Do you want to add additional configuration for tools? No
+? Do you want to install testing tools? Yes
+? Which testing tools do you want to use? jest
+? Which package manager do you want to use? yarn
 ? Do you want to initialize a git repository? Yes
-? Do you want to proceed with the installation? Yes
 
 Summary of your selections:
 
-| Category          | Selection                       |
-|-------------------|---------------------------------|
-| Project Name      | my-awesome-app                  |
-| Destination       | ./projects                      |
-| Project Type      | React                           |
-| Language          | TypeScript                      |
-| Dependencies      | redux, axios, styled-components |
-| Package Manager   | yarn                            |
-| Testing Tools     | Jest                            |
-| Linting Tools     | ESLint, Prettier                |
-| Formatting Tools  | Prettier                        |
-| Additional Config | No                              |
-| Initialize Git    | Yes                             |
+| Category         | Selection                                        |
+|------------------|--------------------------------------------------|
+| Project Name     | rabbit-test                                      |
+| Destination      | ../white-rabbit-gen                              |
+| Project Type     | React                                            |
+| Language         | TypeScript                                       |
+| Dependencies     | @types/react-dom, @types/react-redux, @types/... |
+| Package Manager  | yarn                                             |
+| Testing Tools    | jest                                             |
+| Linting Tools    | ESLint                                           |
+| Formatting Tools | Prettier                                         |
+| Initialize Git   | Yes                                              |
 
-Initializing TypeScript React project: my-awesome-app at ./projects
-Creating React project...
-yarn add redux axios styled-components typescript @types/node eslint prettier
-Dependencies installed successfully
-Configuring ESLint...
-ESLint configured successfully
-Configuring Prettier...
-Prettier configured successfully
-Git repository initialized successfully
-.gitignore file created successfully
-Project setup completed.
-You are now in the project directory: /path/to/projects/my-awesome-app
-
+Initializing TypeScript React project: rabbit-test at ../white-rabbit-gen/rabbit-test
+✔ Dependencies installed successfully
+✔ Git repository initialized successfully
+.gitignore file already exists. Keeping the existing file.
+✔ Project setup completed.
+You are now in the project directory: /Users/romain/Development/SideProjects/react-projects/white-rabbit-gen/rabbit-test
+✔ Application created successfully, happy hacking! 🚀
 ```
 
 ## ⚙️ Options
