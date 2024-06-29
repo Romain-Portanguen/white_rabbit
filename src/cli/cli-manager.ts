@@ -1,4 +1,4 @@
-import QuestionManager from '../utils/question-manager.js';
+import QuestionManager from '../utils/questions/question-manager.js';
 import ApplicationBuilder from '../core/application-builder.js';
 import Logger from '../utils/logger.js';
 import { Answers } from '../@types/answers.js';

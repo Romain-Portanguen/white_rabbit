@@ -7,6 +7,8 @@ export default class DependencyInstaller {
             return;
         }
 
+        packageManager = await this.checkPackageManagerAvailability(packageManager);
+
         const command = this.getInstallCommand(dependencies, packageManager);
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
 
@@ -28,6 +30,36 @@ export default class DependencyInstaller {
             case 'npm':
             default:
                 return `npm install ${dependencies.join(' ')}`;
+        }
+    }
+
+    private static async checkPackageManagerAvailability(packageManager: string): Promise<string> {
+        const packageManagers = ['pnpm', 'yarn', 'npm'];
+        const fallbackManagers: { [key: string]: string } = {
+            pnpm: 'yarn',
+            yarn: 'npm',
+            npm: 'npm'
+        };
+
+        for (let i = 0; i < packageManagers.length; i++) {
+            if (packageManager === packageManagers[i]) {
+                if (await this.isPackageManagerAvailable(packageManager)) {
+                    return packageManager;
+                }
+                console.warn(`${packageManager} not found, falling back to ${fallbackManagers[packageManager]}`);
+                packageManager = fallbackManagers[packageManager];
+            }
+        }
+
+        return packageManager;
+    }
+
+    private static async isPackageManagerAvailable(packageManager: string): Promise<boolean> {
+        try {
+            await execaCommand(`${packageManager} --version`);
+            return true;
+        } catch {
+            return false;
         }
     }
 }

@@ -1,15 +1,34 @@
-import inquirer, { QuestionCollection, DistinctQuestion } from 'inquirer';
+import inquirer, { DistinctQuestion } from 'inquirer';
+import commonQuestions from './questions/common-questions.js';
+import initialQuestions from './questions/initial-questions.js';
 import { Answers } from '../@types/answers.js';
-import questions from './questions.js';
 
-export const modifySelections = async (currentAnswers: Answers): Promise<Answers> => {
-    const modifyQuestions: DistinctQuestion<Answers>[] = (questions as Array<QuestionCollection<Answers>>).map((question) => {
-        const modifiedQuestion = { ...question } as DistinctQuestion<Answers>;
-        if (currentAnswers[modifiedQuestion.name as keyof Answers] !== undefined) {
-            modifiedQuestion.default = currentAnswers[modifiedQuestion.name as keyof Answers];
+export async function modifySelections(answers: Answers): Promise<Answers> {
+    const allQuestions: DistinctQuestion<Answers>[] = [...initialQuestions, ...commonQuestions];
+    const questionMap = new Map(allQuestions.map(q => [q.name, q]));
+
+    const modifyChoices = Object.keys(answers).filter(key => key !== 'confirm').map(key => ({
+        name: questionMap.get(key)?.message || key,
+        value: key
+    }));
+
+    const { selectionsToModify } = await inquirer.prompt([
+        {
+            type: 'checkbox',
+            name: 'selectionsToModify',
+            message: 'Which selections do you want to modify?',
+            choices: modifyChoices,
+            default: modifyChoices.map(choice => choice.value)
         }
-        return modifiedQuestion;
-    });
+    ]);
 
-    return inquirer.prompt<Answers>(modifyQuestions);
-};
+    for (const selection of selectionsToModify) {
+        const question = questionMap.get(selection);
+        if (question) {
+            const newAnswer = await inquirer.prompt([question]);
+            answers = { ...answers, ...newAnswer };
+        }
+    }
+
+    return answers;
+}

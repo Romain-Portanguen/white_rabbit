@@ -11,6 +11,7 @@ import { Answers } from '../@types/answers.js';
 import { join } from 'path';
 import ora from 'ora';
 import { promises as fs } from 'fs';
+import { runAngularCLI } from './project-initializer/angular-initializer.js';
 
 class ApplicationBuilder {
     async buildApplication(answers: Answers): Promise<void> {
@@ -30,6 +31,17 @@ class ApplicationBuilder {
         const projectDir = join(destination, projectName);
 
         console.log(`Initializing ${language} ${projectType} project: ${projectName} at ${projectDir}`);
+
+        if (projectType === 'Angular') {
+            console.log(`Initializing Angular project: ${projectName} at ${projectDir}`);
+            try {
+                await runAngularCLI(answers);
+            } catch (error) {
+                console.error('Error setting up Angular project:', error);
+                throw error;
+            }
+            return;
+        }
 
         const spinner = ora('Setting up your project...').start();
 
@@ -63,7 +75,7 @@ class ApplicationBuilder {
                 }
             }
 
-            if (initializeGit && projectType !== 'Angular') {
+            if (initializeGit) {
                 await this.setupGit(projectDir, projectType, language, dependencies || []);
             }
 
