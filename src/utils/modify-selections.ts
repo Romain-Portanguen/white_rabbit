@@ -1,9 +1,10 @@
 import inquirer, { DistinctQuestion } from 'inquirer';
-import commonQuestions from './questions/common-questions.js';
+import getCommonQuestions from './questions/common-questions.js';
 import initialQuestions from './questions/initial-questions.js';
 import { Answers } from '../@types/answers.js';
 
 export async function modifySelections(answers: Answers): Promise<Answers> {
+    const commonQuestions = getCommonQuestions(answers);
     const allQuestions: DistinctQuestion<Answers>[] = [...initialQuestions, ...commonQuestions];
     const questionMap = new Map(allQuestions.map(q => [q.name, q]));
 

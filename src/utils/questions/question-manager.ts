@@ -2,7 +2,7 @@ import inquirer, { DistinctQuestion } from 'inquirer';
 import inquirerAutocompletePrompt from 'inquirer-autocomplete-prompt';
 import { Answers } from '../../@types/answers.js';
 import initialQuestions from './initial-questions.js';
-import commonQuestions from './common-questions.js';
+import getCommonQuestions from './common-questions.js';
 import { printSummary } from '../summary.js';
 import { modifySelections } from '../modify-selections.js';
 import { runAngularCLI } from '../../core/project-initializer/angular-initializer.js';
@@ -19,8 +19,8 @@ class QuestionManager {
             return answers;
         }
 
-        const additionalQuestions: DistinctQuestion<Answers>[] = [...commonQuestions];
-        answers = { ...answers, ...(await inquirer.prompt<Answers>(additionalQuestions)) };
+        const commonQuestions = getCommonQuestions(answers);
+        answers = { ...answers, ...(await inquirer.prompt<Answers>(commonQuestions)) };
 
         let confirmSummary = true;
 
