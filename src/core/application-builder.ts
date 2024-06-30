@@ -71,9 +71,9 @@ class ApplicationBuilder {
 
             if (answers.installTestingTools && testingTools) {
                 if (testingTools.length > 0) {
-                    await this.configureTestingTools(testingTools, packageManager, projectDir);
+                    await this.configureTestingTools(testingTools, packageManager, projectDir, projectType);
                 }
-            }
+            }            
 
             if (initializeGit) {
                 await this.setupGit(projectDir, projectType, language, dependencies || []);
@@ -88,27 +88,28 @@ class ApplicationBuilder {
         }
     }
 
-    private async configureTestingTools(testingTools: string[], packageManager: string, projectDir: string): Promise<void> {
+    private async configureTestingTools(testingTools: string[], packageManager: string, projectDir: string, projectType: string): Promise<void> {
         const testingDependenciesMap: { [key: string]: string[] } = {
             'jest': ['jest', 'ts-jest', '@types/jest'],
             'mocha': ['mocha', 'chai', '@types/mocha', '@types/chai', 'ts-node'],
             '@testing-library/react': ['@testing-library/react', '@testing-library/jest-dom', '@testing-library/user-event']
         };
-
+    
         for (const tool of testingTools) {
             const dependenciesToInstall = testingDependenciesMap[tool];
             if (dependenciesToInstall) {
                 await DependencyInstaller.installDependencies(dependenciesToInstall, packageManager, projectDir);
                 if (tool === 'jest') {
-                    await generateJestConfig(projectDir);
+                    await generateJestConfig(projectDir, projectType);
                 } else if (tool === 'mocha') {
-                    await generateMochaConfig(projectDir);
+                    await generateMochaConfig(projectDir, projectType);
                 } else if (tool === '@testing-library/react') {
-                    await generateTestingLibraryConfig(projectDir);
+                    await generateTestingLibraryConfig(projectDir, projectType);
                 }
             }
         }
     }
+    
 
     private async setupGit(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
         await GitInitializer.initializeGitRepository(projectDir);
