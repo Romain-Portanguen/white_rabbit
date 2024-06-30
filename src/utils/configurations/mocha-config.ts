@@ -1,14 +1,27 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 
-export async function generateMochaConfig(projectDir: string): Promise<void> {
-    const mochaConfig = `
+export async function generateMochaConfig(projectDir: string, projectType: string): Promise<void> {
+    let mochaConfig = `
 {
   "require": ["ts-node/register"],
   "extension": ["ts"],
   "spec": "test/**/*.spec.ts"
 }
 `;
+
+    if (projectType === 'React' || projectType === 'Vue.js') {
+        mochaConfig = `
+{
+  "require": ["ts-node/register"],
+  "extension": ["ts"],
+  "spec": "test/**/*.spec.ts",
+  "timeout": 5000,
+  "ui": "bdd",
+  "reporter": "spec"
+}
+`;
+    }
 
     await fs.writeFile(join(projectDir, '.mocharc.json'), mochaConfig);
 
