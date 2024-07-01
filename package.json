@@ -1,6 +1,6 @@
 {
   "name": "white-rabbit-cli",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "type": "module",
   "description": "A CLI tool to quickly initialize various types of projects.",
   "main": "dist/index.js",
