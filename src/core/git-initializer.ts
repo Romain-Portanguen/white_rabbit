@@ -2,9 +2,10 @@ import { execaCommand } from 'execa';
 import ora from 'ora';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import GitInitializerInterface from '../@types/core/git-initializer';
 
-export default class GitInitializer {
-    static async initializeGitRepository(projectDir: string): Promise<void> {
+export default class GitInitializer implements GitInitializerInterface {
+    public async initializeGitRepository(projectDir: string): Promise<void> {
         const spinner = ora('Initializing Git repository...').start();
 
         try {
@@ -18,7 +19,7 @@ export default class GitInitializer {
         }
     }
 
-    static async createGitignoreFile(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
+    public async createGitignoreFile(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
         const spinner = ora('Creating .gitignore file...').start();
 
         const gitignoreContent = `

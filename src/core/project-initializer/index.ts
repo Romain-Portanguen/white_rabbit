@@ -1,7 +1,7 @@
-import { createReactProject } from './react-initializer.js';
-import { createAngularProject } from './angular-initializer.js';
-import { createNodeJsProject } from './nodejs-initializer.js';
-import { createVueJsProject } from './vuejs-initializer.js';
+import { createReactProject } from './react-initializer';
+import { createAngularProject } from './angular-initializer';
+import { createNodeJsProject } from './nodejs-initializer';
+import { createVueJsProject } from './vuejs-initializer';
 
 export async function createProject(projectDir: string, projectType: string, language: string): Promise<void> {
     switch (projectType) {

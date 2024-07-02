@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import CLIManager from './cli/cli-manager.js';
+import CLIManager from './cli/cli-manager';
+import QuestionManager from './cli/questions/question-manager';
+import ApplicationBuilder from './core/application-builder';
 
-const whiteRabbit = new CLIManager();
+const questionManager = new QuestionManager();
+const applicationBuilder = new ApplicationBuilder();
+const cliManager = new CLIManager(questionManager, applicationBuilder);
 
-whiteRabbit.run().catch(error => {
-    console.error(error);
-    process.exit(1);
-});
+cliManager.run();

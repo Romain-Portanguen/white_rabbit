@@ -2,57 +2,62 @@ import { execa } from 'execa';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import ora from 'ora';
+import DependencyConfigurerInterface from '../@types/core/dependency-configurer';
 
-export default class DependencyConfigurer {
-    static async configureDependencies(projectDir: string, dependencies: string[], language: string): Promise<void> {
+export default class DependencyConfigurer implements DependencyConfigurerInterface {
+    public async configureDependencies(projectDir: string, dependencies: string[], language: string): Promise<void> {
         const srcDir = join(projectDir, 'src');
 
         if (dependencies.includes('tailwindcss')) {
-            const spinner = ora('Configuring Tailwind CSS...').start();
+            await this.configureTailwindCSS(projectDir, srcDir);
+        }
+    }
 
-            try {
-                await execa('npx', ['tailwindcss', 'init', '-p'], { cwd: projectDir });
+    private async configureTailwindCSS(projectDir: string, srcDir: string): Promise<void> {
+        const spinner = ora('Configuring Tailwind CSS...').start();
 
-                const tailwindConfig = `
-                  module.exports = {
-                    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-                    darkMode: false, // or 'media' or 'class'
-                    theme: {
-                      extend: {},
-                    },
-                    variants: {
-                      extend: {},
-                    },
-                    plugins: [],
-                  };
-                `;
+        try {
+            await execa('npx', ['tailwindcss', 'init', '-p'], { cwd: projectDir });
 
-                await fs.writeFile(join(projectDir, 'tailwind.config.js'), tailwindConfig);
+            const tailwindConfig = `
+module.exports = {
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+};
+`;
 
-                const postcssConfig = `
-                  module.exports = {
-                    plugins: {
-                      tailwindcss: {},
-                      autoprefixer: {},
-                    },
-                  };
-                `;
+            await fs.writeFile(join(projectDir, 'tailwind.config.js'), tailwindConfig);
 
-                await fs.writeFile(join(projectDir, 'postcss.config.js'), postcssConfig);
+            const postcssConfig = `
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+`;
 
-                const indexCssPath = join(srcDir, 'index.css');
-                const indexCssContent = `
-                  @tailwind base;
-                  @tailwind components;
-                  @tailwind utilities;
-                `;
+            await fs.writeFile(join(projectDir, 'postcss.config.js'), postcssConfig);
 
-                await fs.appendFile(indexCssPath, indexCssContent);
-                spinner.succeed('Tailwind CSS configured successfully');
-            } catch (error) {
-                spinner.fail('Error configuring Tailwind CSS');
-                throw error;
-            }
+            const indexCssPath = join(srcDir, 'index.css');
+            const indexCssContent = `
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`;
+
+            await fs.appendFile(indexCssPath, indexCssContent);
+            spinner.succeed('Tailwind CSS configured successfully');
+        } catch (error) {
+            spinner.fail('Error configuring Tailwind CSS');
+            throw error;
         }
     }
 }

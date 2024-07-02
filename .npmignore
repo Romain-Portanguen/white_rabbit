@@ -1,0 +1,27 @@
+# Local configuration files and folders
+.vscode/
+.idea/
+.DS_Store
+
+# Test directories
+__tests__/
+coverage/
+
+# Configuration files specific to the development environment
+*.log
+*.env
+
+# Intermediate compilation and distribution directories
+dist/__tests__/
+dist/**/*.test.js
+
+# TypeScript source files (only keep files compiled in dist)
+src/
+@types/
+
+# Configuration files for tests and development tools
+jest.config.ts
+tsconfig.json
+
+# Other files
+LICENSE

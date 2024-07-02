@@ -1,32 +1,41 @@
-import QuestionManager from '../utils/questions/question-manager.js';
-import ApplicationBuilder from '../core/application-builder.js';
-import Logger from '../utils/logger.js';
-import { Answers } from '../@types/answers.js';
+import QuestionManagerInterface from '../@types/cli/question-manager';
+import ApplicationBuilderInterface from '../@types/core/application-builder';
+import Logger from '../utils/logger';
+import { Answers } from '../@types/common/answers';
+
+const USE_COLORS = true; // ROP: Define whether log messages should use colours.
 
 class CLIManager {
-    private questionManager: QuestionManager;
-    private applicationBuilder: ApplicationBuilder;
+    private questionManager: QuestionManagerInterface;
+    private applicationBuilder: ApplicationBuilderInterface;
+    private logger: Logger;
 
-    constructor() {
-        this.questionManager = new QuestionManager();
-        this.applicationBuilder = new ApplicationBuilder();
+    constructor(questionManager: QuestionManagerInterface, applicationBuilder: ApplicationBuilderInterface) {
+        this.questionManager = questionManager;
+        this.applicationBuilder = applicationBuilder;
+        this.logger = new Logger(USE_COLORS);
     }
 
-    async run(): Promise<void> {
+    public async run(): Promise<void> {
         this.printWelcomeMessage();
-        const answers: Answers = await this.questionManager.askQuestions();
-        
-        if (answers.confirm) {
-            await this.applicationBuilder.buildApplication(answers);
-            Logger.log('Application created successfully, happy hacking! 🚀');
-        } else {
-            Logger.log('Installation cancelled by user 😢');
+        try {
+            const answers: Answers = await this.questionManager.askQuestions();
+            
+            if (answers.confirm) {
+                await this.applicationBuilder.buildApplication(answers);
+                this.logger.log('Application created successfully, happy hacking! 🚀');
+            } else {
+                this.logger.log('Installation cancelled by user 😢');
+            }
+        } catch (error: any) {
+            this.logger.log('An error occurred during the installation process. Please refer to the repository and send us an issue based on the error encountered.');
+            this.logger.error(error.message);
         }
     }
 
     private printWelcomeMessage(): void {
-        Logger.printAsciiArt();
-        Logger.log('Welcome to White Rabbit CLI 🐇');
+        this.logger.printAsciiArt();
+        this.logger.log('Welcome to White Rabbit CLI 🐇');
     }
 }
 
