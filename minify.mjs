@@ -1,10 +1,7 @@
 import { globSync } from 'glob';
 import path from 'path';
 import fs from 'fs';
-import { exec as execCallback } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(execCallback);
+import { spawn } from 'child_process';
 
 console.log('Starting minification process with UglifyJS...');
 
@@ -26,24 +23,31 @@ async function minifyAllFiles() {
     }
 
     console.log(`Minifying ${fullFilePath} to ${fullOutFilePath}`);
-    const cmd = `npx uglify-js ${fullFilePath} --compress --mangle -o ${fullOutFilePath}`;
-    try {
-      const { stdout, stderr } = await execAsync(cmd);
-      if (stderr) {
-        console.error(`Error minifying ${fullFilePath}: ${stderr}`);
-        continue;
+
+    const uglify = spawn('npx', ['uglify-js', fullFilePath, '--compress', '--mangle', '-o', fullOutFilePath]);
+
+    uglify.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    uglify.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+
+    uglify.on('close', (code) => {
+      if (code !== 0) {
+        console.error(`Minification process exited with code ${code}`);
+        return;
       }
-      console.log(`Minified ${fullFilePath}: ${stdout}`);
-      
+
+      console.log(`Minified ${fullFilePath}`);
+
       fs.unlinkSync(fullFilePath);
       console.log(`Deleted original file: ${fullFilePath}`);
       
       fs.renameSync(fullOutFilePath, fullFilePath);
       console.log(`Renamed minified file: ${fullOutFilePath} to ${fullFilePath}`);
-      
-    } catch (execError) {
-      console.error(`Minification error for ${fullFilePath}:`, execError);
-    }
+    });
   }
 }
 
