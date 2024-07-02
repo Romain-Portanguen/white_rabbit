@@ -1,6 +1,6 @@
 import { DistinctQuestion } from 'inquirer';
-import { Answers } from '../../@types/answers.js';
-import { getDependenciesByProjectType } from '../dependencies.js';
+import { Answers } from '../../@types/common/answers';
+import { getDependenciesByProjectType } from '../../utils/dependencies';
 
 const getCommonQuestions = (answers: Answers): DistinctQuestion<Answers>[] => {
     const dependencies = getDependenciesByProjectType(answers.projectType);

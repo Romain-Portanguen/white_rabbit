@@ -9,17 +9,6 @@ Command-line tool (CLI) designed to facilitate the creation of web dev projects.
 <img src="https://img.shields.io/badge/-Beta-05122A?style=plastic&amp;logo=Beta&amp;color=2B343B" alt="shields">
 </p>
 
-<hr>
-
-<h4 align=center>
-🚨 Disclaimer 🚨
-</h4>
-
-<p align="center">
-<strong>White Rabbit CLI</strong> is still in beta version and malfunctions may occur. </br>
-I am actively working on optimizing the whole process of initializing the project. Thank you for your understanding.
-</p>
-
 ## 📑 Table of Contents
 
 - [📑 Table of Contents](#-table-of-contents)
@@ -74,7 +63,6 @@ Follow the prompts to configure your project. You will be asked to provide the f
 - Testing tools.
 - Linting tools.
 - Formatting tools.
-- Additional configuration for tools.
 - Initialize Git repository.
 
 ## 👀 Example

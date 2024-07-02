@@ -1,13 +1,22 @@
 import { execaCommand } from 'execa';
 import ora from 'ora';
+import DependencyInstallerInterface from '../@types/core/dependency-installer';
+import PackageManagerCheckerInterface from '../@types/core/package-manager-checker';
+import PackageManagerChecker from './package-manager-checker';
 
-export default class DependencyInstaller {
-    static async installDependencies(dependencies: string[], packageManager: string, projectDir: string): Promise<void> {
+export default class DependencyInstaller implements DependencyInstallerInterface {
+    private packageManagerChecker: PackageManagerCheckerInterface;
+
+    constructor(packageManagerChecker: PackageManagerCheckerInterface = new PackageManagerChecker()) {
+        this.packageManagerChecker = packageManagerChecker;
+    }
+
+    public async installDependencies(dependencies: string[], packageManager: string, projectDir: string): Promise<void> {
         if (dependencies.length === 0) {
             return;
         }
 
-        packageManager = await this.checkPackageManagerAvailability(packageManager);
+        packageManager = await this.packageManagerChecker.checkAvailability(packageManager);
 
         const command = this.getInstallCommand(dependencies, packageManager);
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
@@ -21,7 +30,7 @@ export default class DependencyInstaller {
         }
     }
 
-    private static getInstallCommand(dependencies: string[], packageManager: string): string {
+    private getInstallCommand(dependencies: string[], packageManager: string): string {
         switch (packageManager) {
             case 'yarn':
                 return `yarn add ${dependencies.join(' ')}`;
@@ -30,36 +39,6 @@ export default class DependencyInstaller {
             case 'npm':
             default:
                 return `npm install ${dependencies.join(' ')}`;
-        }
-    }
-
-    private static async checkPackageManagerAvailability(packageManager: string): Promise<string> {
-        const packageManagers = ['pnpm', 'yarn', 'npm'];
-        const fallbackManagers: { [key: string]: string } = {
-            pnpm: 'yarn',
-            yarn: 'npm',
-            npm: 'npm'
-        };
-
-        for (let i = 0; i < packageManagers.length; i++) {
-            if (packageManager === packageManagers[i]) {
-                if (await this.isPackageManagerAvailable(packageManager)) {
-                    return packageManager;
-                }
-                console.warn(`${packageManager} not found, falling back to ${fallbackManagers[packageManager]}`);
-                packageManager = fallbackManagers[packageManager];
-            }
-        }
-
-        return packageManager;
-    }
-
-    private static async isPackageManagerAvailable(packageManager: string): Promise<boolean> {
-        try {
-            await execaCommand(`${packageManager} --version`);
-            return true;
-        } catch {
-            return false;
         }
     }
 }

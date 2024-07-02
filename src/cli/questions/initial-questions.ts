@@ -1,6 +1,6 @@
 import { DistinctQuestion } from 'inquirer';
-import { Answers } from '../../@types/answers.js';
-import { getDirectorySuggestions } from '../path-suggestions.js';
+import { Answers } from '../../@types/common/answers';
+import { getDirectorySuggestions } from '../../utils/path-suggestions';
 
 const initialQuestions: DistinctQuestion<Answers>[] = [
     {

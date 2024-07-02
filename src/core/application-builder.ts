@@ -1,20 +1,31 @@
-import { createProject } from './project-initializer/index.js';
-import { generateESLintConfig } from '../utils/configurations/eslint-config.js';
-import { generatePrettierConfig } from '../utils/configurations/prettier-config.js';
-import { generateJestConfig } from '../utils/configurations/jest-config.js';
-import { generateMochaConfig } from '../utils/configurations/mocha-config.js';
-import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config.js';
-import DependencyInstaller from './dependency-installer.js';
-import DependencyConfigurer from './dependency-configurer.js';
-import GitInitializer from './git-initializer.js';
-import { Answers } from '../@types/answers.js';
+import { createProject } from './project-initializer/index';
+import { generateESLintConfig } from '../utils/configurations/eslint-config';
+import { generatePrettierConfig } from '../utils/configurations/prettier-config';
+import { generateJestConfig } from '../utils/configurations/jest-config';
+import { generateMochaConfig } from '../utils/configurations/mocha-config';
+import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config';
+import DependencyInstaller from './dependency-installer';
+import DependencyConfigurer from './dependency-configurer';
+import GitInitializer from './git-initializer';
+import { Answers } from '../@types/common/answers';
+import ApplicationBuilderInterface from '../@types/core/application-builder';
 import { join } from 'path';
 import ora from 'ora';
 import { promises as fs } from 'fs';
-import { runAngularCLI } from './project-initializer/angular-initializer.js';
+import { runAngularCLI } from './project-initializer/angular-initializer';
 
-class ApplicationBuilder {
-    async buildApplication(answers: Answers): Promise<void> {
+class ApplicationBuilder implements ApplicationBuilderInterface {
+    private dependencyInstaller: DependencyInstaller;
+    private dependencyConfigurer: DependencyConfigurer;
+    private gitInitializer: GitInitializer;
+
+    constructor() {
+        this.dependencyInstaller = new DependencyInstaller();
+        this.dependencyConfigurer = new DependencyConfigurer();
+        this.gitInitializer = new GitInitializer();
+    }
+
+    public async buildApplication(answers: Answers): Promise<void> {
         const { 
             projectName,
             projectType,
@@ -51,10 +62,10 @@ class ApplicationBuilder {
             if (answers.installDependencies && dependencies) {
                 const filteredDependencies = dependencies.filter(dep => dep !== 'none');
                 if (filteredDependencies.length > 0) {
-                    await DependencyInstaller.installDependencies(filteredDependencies, packageManager, projectDir);
+                    await this.dependencyInstaller.installDependencies(filteredDependencies, packageManager, projectDir);
                 }
 
-                await DependencyConfigurer.configureDependencies(projectDir, filteredDependencies, language);
+                await this.dependencyConfigurer.configureDependencies(projectDir, filteredDependencies, language);
             }
 
             if (answers.installLintingTools && lintingTools) {
@@ -76,7 +87,8 @@ class ApplicationBuilder {
             }            
 
             if (initializeGit) {
-                await this.setupGit(projectDir, projectType, language, dependencies || []);
+                await this.gitInitializer.initializeGitRepository(projectDir);
+                await this.gitInitializer.createGitignoreFile(projectDir, projectType, language, dependencies || []);
             }
 
             spinner.succeed('Project setup completed.');
@@ -98,7 +110,7 @@ class ApplicationBuilder {
         for (const tool of testingTools) {
             const dependenciesToInstall = testingDependenciesMap[tool];
             if (dependenciesToInstall) {
-                await DependencyInstaller.installDependencies(dependenciesToInstall, packageManager, projectDir);
+                await this.dependencyInstaller.installDependencies(dependenciesToInstall, packageManager, projectDir);
                 if (tool === 'jest') {
                     await generateJestConfig(projectDir, projectType);
                 } else if (tool === 'mocha') {
@@ -107,19 +119,6 @@ class ApplicationBuilder {
                     await generateTestingLibraryConfig(projectDir, projectType);
                 }
             }
-        }
-    }
-    
-
-    private async setupGit(projectDir: string, projectType: string, language: string, dependencies: string[]): Promise<void> {
-        await GitInitializer.initializeGitRepository(projectDir);
-
-        const gitignorePath = join(projectDir, '.gitignore');
-        try {
-            await fs.access(gitignorePath);
-            console.log('.gitignore file already exists. Keeping the existing file.');
-        } catch {
-            await GitInitializer.createGitignoreFile(projectDir, projectType, language, dependencies);
         }
     }
 
