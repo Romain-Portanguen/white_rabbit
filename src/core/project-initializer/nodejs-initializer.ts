@@ -1,15 +1,16 @@
-import { resolve } from 'path';
 import CommandExecutorInterface from '../../@types/utils/command-executor';
 import FileSystemInterface from '../../@types/utils/file-system';
 import PackageManagerChecker from '../../core/package-manager-checker';
 import ora from 'ora';
 import Logger from '../../utils/logger';
+import { resolve } from 'path';
 import { Answers } from '../../@types/common/answers';
 import { generateESLintConfig } from '../../utils/configurations/eslint-config';
 import { generatePrettierConfig } from '../../utils/configurations/prettier-config';
 import { generateJestConfig } from '../../utils/configurations/jest-config';
 import { generateMochaConfig } from '../../utils/configurations/mocha-config';
 import { generateTestingLibraryConfig } from '../../utils/configurations/testing-library-config';
+import { generateTypeScriptConfig } from '../../utils/configurations/typescript-config';
 
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
@@ -17,6 +18,7 @@ const logger = new Logger(USE_COLORS);
 export async function createNodeJsProject(
     projectDir: string,
     projectName: string,
+    language: string,
     commandExecutor: CommandExecutorInterface,
     fileSystem: FileSystemInterface,
     packageManagerChecker: PackageManagerChecker,
@@ -46,6 +48,18 @@ export async function createNodeJsProject(
         const packageJsonPath = resolve(absoluteProjectDir, 'package.json');
         const packageJson = JSON.parse(await fileSystem.readFile(packageJsonPath, 'utf-8'));
         packageJson.name = projectName;
+
+        if (language === 'TypeScript') {
+            const tsDependencies = [
+                'typescript',
+                'ts-node',
+                '@types/node',
+            ];
+            const installTsDepsCommand = `npm install --save-dev ${tsDependencies.join(' ')}`;
+            await commandExecutor.execute(installTsDepsCommand, { cwd: absoluteProjectDir });
+
+            await generateTypeScriptConfig(absoluteProjectDir, fileSystem);
+        }
 
         await fileSystem.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
@@ -95,7 +109,7 @@ export async function runNodeJsInit(
     fileSystem: FileSystemInterface,
     packageManagerChecker: PackageManagerChecker
 ): Promise<void> {
-    const { projectName, destination, dependencies = [], lintingTools = [], formattingTools = [], testingTools = [] } = answers;
+    const { projectName, destination, language, dependencies = [], lintingTools = [], formattingTools = [], testingTools = [] } = answers;
     const projectDir = `${destination}/${projectName}`;
     const spinner = ora('Initializing Node.js project...').start();
 
@@ -104,6 +118,7 @@ export async function runNodeJsInit(
         await createNodeJsProject(
             projectDir,
             projectName,
+            language,
             commandExecutor,
             fileSystem,
             packageManagerChecker,

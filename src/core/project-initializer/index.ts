@@ -30,6 +30,7 @@ export async function createProject(
             await createNodeJsProject(
                 projectDir,
                 projectName,
+                language,
                 commandExecutor,
                 fileSystem,
                 packageManagerChecker,
