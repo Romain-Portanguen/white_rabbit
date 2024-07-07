@@ -9,4 +9,20 @@ export class FileSystem implements FileSystemInterface {
     public async appendFile(path: string, data: string): Promise<void> {
         await fs.appendFile(path, data);
     }
+
+    public async mkdir(path: string, options?: object): Promise<void> {
+        await fs.mkdir(path, options);
+    }
+
+    public async access(path: string): Promise<void> {
+        await fs.access(path);
+    }
+
+    public async readdir(path: string): Promise<string[]> {
+        return await fs.readdir(path);
+    }
+
+    public async stat(path: string): Promise<{ isDirectory(): boolean }> {
+        return await fs.stat(path);
+    }
 }

@@ -1,19 +1,19 @@
 import path from 'path';
-import { promises as fs } from 'fs';
+import FileSystemInterface from '../@types/utils/file-system';
 import Logger from './logger';
 
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
 
-export const getDirectorySuggestions = async (input: string): Promise<string[]> => {
+export const getDirectorySuggestions = async (input: string, fileSystem: FileSystemInterface): Promise<string[]> => {
     input = input || '.';
     try {
-        const files = await fs.readdir(path.resolve(input));
+        const files = await fileSystem.readdir(path.resolve(input));
         const directories = await Promise.all(
-            files.map(async (file) => {
+            files.map(async (file: string) => {
                 const fullPath = path.join(input, file);
                 try {
-                    const fileStat = await fs.stat(fullPath);
+                    const fileStat = await fileSystem.stat(fullPath);
                     if (fileStat.isDirectory() && !['node_modules', '.git', '.idea', 'dist', 'build'].includes(file)) {
                         return fullPath;
                     }
@@ -23,7 +23,7 @@ export const getDirectorySuggestions = async (input: string): Promise<string[]> 
                 return null;
             })
         );
-        return directories.filter((dir) => dir !== null) as string[];
+        return directories.filter((dir: string | null) => dir !== null) as string[];
     } catch (error: any) {
         logger.error(`Error reading directory ${input}: ${error.message}`);
         return [];

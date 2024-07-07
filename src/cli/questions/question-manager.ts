@@ -1,13 +1,14 @@
 import inquirer from 'inquirer';
 import inquirerAutocompletePrompt from 'inquirer-autocomplete-prompt';
 import QuestionManagerInterface from '../../@types/cli/question-manager';
-import initialQuestions from './initial-questions';
+import createInitialQuestions from './initial-questions';
 import getCommonQuestions from './common-questions';
 import { printSummary } from '../../utils/summary';
 import { runAngularCLI } from '../../core/project-initializer/angular-initializer';
 import { Answers } from '../../@types/common/answers';
 import Logger from '../../utils/logger';
 import CommandExecutorInterface from '../../@types/utils/command-executor';
+import FileSystemInterface from '../../@types/utils/file-system';
 
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
@@ -16,15 +17,17 @@ inquirer.registerPrompt('autocomplete', inquirerAutocompletePrompt as any);
 
 class QuestionManager implements QuestionManagerInterface {
     private commandExecutor: CommandExecutorInterface;
+    private fileSystem: FileSystemInterface;
 
-    constructor(commandExecutor: CommandExecutorInterface) {
+    constructor(commandExecutor: CommandExecutorInterface, fileSystem: FileSystemInterface) {
         this.commandExecutor = commandExecutor;
+        this.fileSystem = fileSystem;
     }
 
     async askQuestions(): Promise<Answers> {
         while (true) {
             try {
-                let answers: Answers = await inquirer.prompt<Answers>(initialQuestions);
+                let answers: Answers = await inquirer.prompt<Answers>(createInitialQuestions(this.fileSystem));
 
                 if (answers.projectType === 'Angular') {
                     await runAngularCLI(answers, this.commandExecutor);

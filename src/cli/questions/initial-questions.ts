@@ -1,8 +1,9 @@
 import { DistinctQuestion } from 'inquirer';
 import { Answers } from '../../@types/common/answers';
 import { getDirectorySuggestions } from '../../utils/path-suggestions';
+import FileSystemInterface from '../../@types/utils/file-system';
 
-const initialQuestions: DistinctQuestion<Answers>[] = [
+const initialQuestions = (fileSystem: FileSystemInterface): DistinctQuestion<Answers>[] => [
     {
         type: 'input',
         name: 'projectName',
@@ -14,7 +15,7 @@ const initialQuestions: DistinctQuestion<Answers>[] = [
         name: 'destination',
         message: 'Where do you want to create the project? (Specify the path)',
         source: async (answers, input) => {
-            return getDirectorySuggestions(input);
+            return getDirectorySuggestions(input, fileSystem);
         },
         validate: (input) => !!input || 'Destination is required'
     },

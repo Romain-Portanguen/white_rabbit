@@ -11,7 +11,7 @@ import { FileSystem } from './utils/file-system';
 
 const commandExecutor = new CommandExecutor();
 const fileSystem = new FileSystem();
-const questionManager = new QuestionManager(commandExecutor);
+const questionManager = new QuestionManager(commandExecutor, fileSystem);
 const packageManagerChecker = new PackageManagerChecker();
 const dependencyInstaller = new DependencyInstaller(packageManagerChecker, commandExecutor);
 const dependencyConfigurer = new DependencyConfigurer(commandExecutor, fileSystem);
