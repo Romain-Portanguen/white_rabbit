@@ -45,14 +45,11 @@ export async function createNodeJsProject(
 
         await commandExecutor.execute(command, { cwd: absoluteProjectDir });
 
-        const packageJsonPath = resolve(absoluteProjectDir, 'package.json');
-        const packageJson = JSON.parse(await fileSystem.readFile(packageJsonPath, 'utf-8'));
-        packageJson.name = projectName;
-
         if (language === 'TypeScript') {
             const tsDependencies = [
                 'typescript',
                 'ts-node',
+                'ts-node-dev',
                 '@types/node',
             ];
             const installTsDepsCommand = `npm install --save-dev ${tsDependencies.join(' ')}`;
@@ -60,8 +57,6 @@ export async function createNodeJsProject(
 
             await generateTypeScriptConfig(absoluteProjectDir, fileSystem);
         }
-
-        await fileSystem.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
         if (dependencies.length > 0) {
             const installDepsCommand = `npm install ${dependencies.join(' ')}`;

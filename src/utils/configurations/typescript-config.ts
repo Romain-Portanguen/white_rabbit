@@ -19,12 +19,15 @@ export async function generateTypeScriptConfig(projectDir: string, fileSystem: F
     await fileSystem.writeFile(tsconfigPath, JSON.stringify(tsconfigContent, null, 2));
 
     const packageJsonPath = resolve(projectDir, 'package.json');
-    const packageJson = JSON.parse(await fileSystem.readFile(packageJsonPath, 'utf-8'));
+    const packageJsonContent = await fileSystem.readFile(packageJsonPath, 'utf-8');
+    const packageJson = JSON.parse(packageJsonContent);
+
     packageJson.scripts = {
         ...packageJson.scripts,
         "build": "tsc",
         "start": "ts-node src/index.ts",
         "dev": "ts-node-dev src/index.ts"
     };
+
     await fileSystem.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 }
