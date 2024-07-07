@@ -8,21 +8,21 @@
     <em>Unleash code magic, effortlessly optimize and deploy.</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/Romain-Portanguen/white_rabbit?style=plastic&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/Romain-Portanguen/white_rabbit?style=plastic&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/Romain-Portanguen/white_rabbit?style=plastic&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/Romain-Portanguen/white_rabbit?style=plastic&color=0080ff" alt="repo-language-count">
+ <img src="https://img.shields.io/github/license/Romain-Portanguen/white_rabbit?style=plastic&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+ <img src="https://img.shields.io/github/last-commit/Romain-Portanguen/white_rabbit?style=plastic&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+ <img src="https://img.shields.io/github/languages/top/Romain-Portanguen/white_rabbit?style=plastic&color=0080ff" alt="repo-top-language">
+ <img src="https://img.shields.io/github/languages/count/Romain-Portanguen/white_rabbit?style=plastic&color=0080ff" alt="repo-language-count">
 <p>
 <p align="center">
-		<em>Developed with the software and tools below.</em>
+  <em>Developed with the software and tools below.</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=plastic&logo=JavaScript&logoColor=black" alt="JavaScript">
-	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=plastic&logo=YAML&logoColor=white" alt="YAML">
-	<img src="https://img.shields.io/badge/Jest-C21325.svg?style=plastic&logo=Jest&logoColor=white" alt="Jest">
-	<img src="https://img.shields.io/badge/tsnode-3178C6.svg?style=plastic&logo=ts-node&logoColor=white" alt="tsnode">
-	<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=plastic&logo=TypeScript&logoColor=white" alt="TypeScript">
-	<img src="https://img.shields.io/badge/JSON-000000.svg?style=plastic&logo=JSON&logoColor=white" alt="JSON">
+ <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=plastic&logo=JavaScript&logoColor=black" alt="JavaScript">
+ <img src="https://img.shields.io/badge/YAML-CB171E.svg?style=plastic&logo=YAML&logoColor=white" alt="YAML">
+ <img src="https://img.shields.io/badge/Jest-C21325.svg?style=plastic&logo=Jest&logoColor=white" alt="Jest">
+ <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=plastic&logo=TypeScript&logoColor=white" alt="TypeScript">
+ <img src="https://img.shields.io/badge/tsnode-3178C6.svg?style=plastic&logo=ts-node&logoColor=white" alt="tsnode">
+ <img src="https://img.shields.io/badge/JSON-000000.svg?style=plastic&logo=JSON&logoColor=white" alt="JSON">
 </p>
 
 <br><!-- TABLE OF CONTENTS -->
@@ -39,28 +39,29 @@
   - [🧪 Tests](#-tests)
 - [🤝 Contributing](#-contributing)
 - [🎗 License](#-license)
+
 </details>
 <hr>
 
 ## 📍 Overview
 
-White Rabbit automates project setup with TypeScript CLI tools, facilitating seamless initialization, testing, and dependency management. Core functionalities include project structuring, Git integration, and tailored setup for React, Vue.js, Node.js, and Angular projects. The projects value lies in enhancing developer efficiency while ensuring consistent configurations and streamlined project initialization within the White Rabbit repository architecture.
+White Rabbit automates project setup by offering an interactive CLI tool that initializes JavaScript projects with TypeScript support. It manages dependencies, sets up Git repositories, and configures popular tools like ESLint, Prettier, and Jest. By dynamically handling project types such as React, Vue.js, Node.js and Angular, White Rabbit streamlines application building and execution, enhancing developer productivity.
 
 ---
 
 ## 🧩 Features
 
-|     | Feature           | Description                                                                                                                                                                                                                                                              |
-|-----|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ⚙️  | **Architecture**  | The project has a well-structured architecture with modules for CLI interaction, project initialization, configuration setup, and more, ensuring a clear and organized codebase. TypeScript is used throughout the project for type safety and maintainability.          |
-| 🔩  | **Code Quality**  | The codebase maintains a high level of quality with consistent coding style, error handling, and clear logging mechanisms. Testing is incorporated for quality assurance, and linting tools like ESLint and Prettier enforce code standards.                             |
-| 📄  | **Documentation** | The project provides extensive documentation through type annotations, README files, and inline comments, enhancing code understandability and helping developers onboard quickly. The GitHub repository contains detailed guidelines and instructions for contributors. |
-| 🔌  | **Integrations**  | Key integrations include Jest for testing, Inquirer for CLI interaction, chalk and cli-table3 for output formatting, and execa for executing CLI commands. These dependencies enhance functionality and improve user experience within the project.                      |
-| 🧩  | **Modularity**    | The codebase exhibits high modularity with separate modules for different functionalities like dependency handling, project initialization, and CLI interactions. This modular approach encourages code reuse and simplifies maintenance tasks.                          |
-| 🧪  | **Testing**       | The project utilizes Jest as the primary testing framework, enabling unit testing and ensuring code reliability. Test files are structured within the source directory, and Jest configurations are tailored to TypeScript and Node.js environments.                     |
-| ⚡️  | **Performance**   | The project emphasizes efficiency with tools like UglifyJS for minification, speeding up production deployment. The use of async operations with execa ensures smooth CLI interactions, while performance optimizations are integrated across various functionalities.   |
-| 🛡️ | **Security**      | Measures such as package manager version verification, Git initialization safeguards, and error handling strategies contribute to data protection and secure project setup. Security practices are followed for CLI operations and dependency installation.              |
-| 📦  | **Dependencies**  | Key external libraries include Jest for testing, Inquirer for interactive prompts, and execa for CLI operations. Additional dependencies like chalk, cli-table3, and ora enhance the project's functionality and user experience.                                        |
+|     | Feature           | Description                                                                                                                                                                                                                                                                                                                                            |
+|-----|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ⚙️  | **Architecture**  | White Rabbit project features a modular architecture with interfaces for core functionalities like dependency management, Git initialization, and application building. It utilizes TypeScript for type safety and enhanced structure. CLI Manager orchestrates various modules for streamlined application creation.                                  |
+| 🔩  | **Code Quality**  | The codebase maintains high code quality standards with TypeScript for strict typing, consistent naming conventions, and clean architecture patterns. Jest testing framework ensures robust test coverage, enhancing code reliability and maintainability. ESLint and Prettier configurations enforce consistent code formatting and style guidelines. |
+| 📄  | **Documentation** | The project provides comprehensive documentation, including type declarations for core modules, CLI operations, and utilities. README.md offers project overview, installation instructions, and usage guidelines. Inline comments and type annotations enhance code readability and maintainability.                                                  |
+| 🔌  | **Integrations**  | Key integrations include Jest for testing, Inquirer for interactive prompts, chalk for colored output, and execa for shell command execution. External dependencies like cli-table3 and ora enhance CLI functionality and user experience. Modular design facilitates seamless integration of new features and tools.                                  |
+| 🧩  | **Modularity**    | White Rabbit emphasizes modularity and reusability with interfaces defining core functionalities. Dependencies are managed dynamically based on project type, enhancing flexibility and extensibility. Modules like dependency-installer and git-initializer encapsulate specific tasks, promoting code reusability and maintainability.               |
+| 🧪  | **Testing**       | The project utilizes Jest along with TypeScript to ensure comprehensive test coverage. Mocks and spies are employed for testing CLI Manager functionalities, ensuring reliable testing outcomes. Testing Library configurations enhance testing capabilities, supporting efficient unit and integration testing.                                       |
+| ⚡️  | **Performance**   | White Rabbit focuses on efficiency with tools like UglifyJS for code minification and optimization. The project's streamlined architecture and use of TypeScript contribute to improved performance and resource utilization. Dynamic dependency installation and Git setup enhance project initialization speed.                                      |
+| 🛡️ | **Security**      | Security measures include robust typing with TypeScript, preventing common runtime errors and vulnerabilities. Git initializer ensures proper setup of version control, enhancing code security and collaboration. Strict ESLint rules and standardized code formatting promote secure coding practices.                                               |
+| 📦  | **Dependencies**  | Key dependencies include Jest for testing, Inquirer for CLI interaction, chalk for colored output, and execa for command execution. TypeScript, ts-node, and ts-jest support the projects TypeScript ecosystem. yaml and glob aid in configuration and file handling tasks.                                                                            |
 
 ---
 
@@ -68,68 +69,24 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 
 ```sh
 └── white_rabbit/
-   ├── LICENSE
-   ├── README.md
-   ├── add-js-extensions.js
-   ├── jest.config.ts
-   ├── minify.mjs
-   ├── package-lock.json
-   ├── package.json
-   ├── scripts
-   ├── src
-   │   ├── @types
-   │   │   ├── cli
-   │   │   │   └── question-manager.d.ts
-   │   │   ├── common
-   │   │   │   ├── answers.d.ts
-   │   │   │   └── inquirer-autocomplete-prompt.d.ts
-   │   │   ├── core
-   │   │   │   ├── application-builder.d.ts
-   │   │   │   ├── dependency-configurer.d.ts
-   │   │   │   ├── dependency-installer.d.ts
-   │   │   │   ├── git-initializer.d.ts
-   │   │   │   └── package-manager-checker.d.ts
-   │   │   └── utils
-   │   │       └── logger.d.ts
-   │   ├── __tests__
-   │   │   ├── cli
-   │   │   │   └── cli-manager.test.ts
-   │   │   ├── core
-   │   │   └── utils
-   │   ├── cli
-   │   │   ├── cli-manager.ts
-   │   │   └── questions
-   │   │       ├── common-questions.ts
-   │   │       ├── initial-questions.ts
-   │   │       └── question-manager.ts
-   │   ├── core
-   │   │   ├── application-builder.ts
-   │   │   ├── dependency-configurer.ts
-   │   │   ├── dependency-installer.ts
-   │   │   ├── git-initializer.ts
-   │   │   ├── package-manager-checker.ts
-   │   │   └── project-initializer
-   │   │       ├── angular-initializer.ts
-   │   │       ├── index.ts
-   │   │       ├── nodejs-initializer.ts
-   │   │       ├── react-initializer.ts
-   │   │       └── vuejs-initializer.ts
-   │   ├── index.ts
-   │   ├── public
-   │   │   └── assets
-   │   │       └── WhiteRabbit_Banner.png
-   │   └── utils
-   │       ├── configurations
-   │       │   ├── eslint-config.ts
-   │       │   ├── jest-config.ts
-   │       │   ├── mocha-config.ts
-   │       │   ├── prettier-config.ts
-   │       │   └── testing-library-config.ts
-   │       ├── dependencies.ts
-   │       ├── logger.ts
-   │       ├── path-suggestions.ts
-   │       └── summary.ts
-   └── tsconfig.json
+    ├── .github
+    │   └── FUNDING.yml
+    ├── LICENSE
+    ├── README.md
+    ├── add-js-extensions.js
+    ├── jest.config.ts
+    ├── minify.mjs
+    ├── package-lock.json
+    ├── package.json
+    ├── src
+    │   ├── @types
+    │   ├── __tests__
+    │   ├── cli
+    │   ├── core
+    │   ├── index.ts
+    │   ├── public
+    │   └── utils
+    └── tsconfig.json
 ```
 
 ---
@@ -138,140 +95,144 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 
 <details closed><summary>.</summary>
 
-| File                                                                                                       | Summary                                                                                                                                                                                                                                                        |
-|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [minify.mjs](https://github.com/Romain-Portanguen/white_rabbit/blob/master/minify.mjs)                     | Initiates JavaScript minification using UglifyJS on all files in the dist directory. Automatically compresses, mangles, and renames files, optimizing them for production deployment in the white_rabbit repository.                                           |
-| [add-js-extensions.js](https://github.com/Romain-Portanguen/white_rabbit/blob/master/add-js-extensions.js) | Transforms JavaScript files by adding.js extensions to import statements to ensure proper module resolution within the dist directory in the White Rabbit project.                                                                                             |
-| [package-lock.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/package-lock.json)       | To provide developers with tools and utilities that streamline the development process and improve the efficiency of their projects.                                                                                                                           |
-| [package.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/package.json)                 | Enables rapid project setup with a TypeScript CLI tool. Automates project initialization, leveraging key node modules. Supports testing, minification, and type-checking to streamline development workflows.                                                  |
-| [tsconfig.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/tsconfig.json)               | Enabling modern JavaScript features and resolving module paths for testing, the tsconfig.json configures strict TypeScript settings for the white_rabbit repositorys source and test directories.                                                              |
-| [jest.config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/jest.config.ts)             | Configures Jest testing framework for TypeScript and Node.js in the `white_rabbit` repository. Sets up test environment, module extensions, test paths, and transformation rules to ensure seamless testing of TypeScript files within designated directories. |
+| File                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                                                |
+|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [minify.mjs](https://github.com/Romain-Portanguen/white_rabbit/blob/master/minify.mjs)                     | Initiates minification process using UglifyJS for all JavaScript files in the dist directory. Finds, minifies, renames, and deletes files, ensuring efficient handling of JavaScript resources for the project.                                                                                                                                                                        |
+| [add-js-extensions.js](https://github.com/Romain-Portanguen/white_rabbit/blob/master/add-js-extensions.js) | Automates adding.js extensions to ES module imports in the dist directory to ensure proper module resolution for JavaScript files within the White Rabbit repository.                                                                                                                                                                                                                  |
+| [package-lock.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/package-lock.json)       | The code in `minify.mjs` is responsible for optimizing and reducing the size of JavaScript files within the `white_rabbit` repository. By minimizing the code, it enhances the overall performance and efficiency of the software. This file plays a crucial role in ensuring that the final output of the repositorys JavaScript codebase is streamlined and optimized for execution. |
+| [package.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/package.json)                 | Enables rapid project initialization via the White Rabbit CLI tool. It manages project setup intelligently, leveraging TypeScript and Node.js. Key features include interactive prompts, project type selection, and efficient code minification.                                                                                                                                      |
+| [tsconfig.json](https://github.com/Romain-Portanguen/white_rabbit/blob/master/tsconfig.json)               | Enables TypeScript compilation and resolution, optimizing the projects structure. It specifies ESNext target, node module resolution, and plugins for transforming JavaScript files, ensuring strict typing and consistent naming conventions while including relevant source directories for processing.                                                                              |
+| [jest.config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/jest.config.ts)             | Configures Jest testing environment for TypeScript files, excluding specified paths. Specifies file extensions, root directories, and transformation rules. Defines global settings for TypeScript compilation.                                                                                                                                                                        |
 
 </details>
 
 <details closed><summary>.github</summary>
 
-| File                                                                                             | Summary                                                                                                                                                                               |
-|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [FUNDING.yml](https://github.com/Romain-Portanguen/white_rabbit/blob/master/.github/FUNDING.yml) | Defines funding platforms for GitHub Sponsors, Patreon, Open Collective, Ko-fi, Tidelift, and others. Facilitates financial support options for project contributors and maintainers. |
+| File                                                                                             | Summary                                                                                                                                                                                                     |
+|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [FUNDING.yml](https://github.com/Romain-Portanguen/white_rabbit/blob/master/.github/FUNDING.yml) | Defines funding options for the project, linking to platforms like GitHub Sponsors, Patreon, and Open Collective. Enables financial support via various channels to sustain project development and growth. |
 
 </details>
 
 <details closed><summary>src</summary>
 
-| File                                                                                   | Summary                                                                                                                                                                |
-|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [index.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/index.ts) | Initiates CLI interaction, manages questions, and builds applications. Implements a structured approach within the parent architecture for a seamless user experience. |
+| File                                                                                   | Summary                                                                                                                                                                                                                          |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [index.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/index.ts) | Initiates CLI Manager, facilitating interactive questioning and software creation. Orchestrates Dependency Installer, Configurer, Git Initializer, and Package Manager Checker to streamline application building and execution. |
 
 </details>
 
 <details closed><summary>src.@types.core</summary>
 
-| File                                                                                                                                       | Summary                                                                                                                                                                                                                                                                     |
-|--------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [package-manager-checker.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/package-manager-checker.d.ts) | Defines interface `PackageManagerCheckerInterface` facilitating checks for package manager availability and checking if a package manager is available. The file resides in the `@types/core` directory in the `white_rabbit` repository, contributing to its architecture. |
-| [dependency-installer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/dependency-installer.d.ts)       | Defines interface `DependencyInstallerInterface` with method `installDependencies`, enabling installation of specified dependencies using a given package manager within a project directory.                                                                               |
-| [git-initializer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/git-initializer.d.ts)                 | Defines the interface for initializing a Git repository and creating a.gitignore file based on project specifications.                                                                                                                                                      |
-| [dependency-configurer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/dependency-configurer.d.ts)     | Defines DependencyConfigurerInterface to configure project dependencies with specified language in white_rabbit architecture.                                                                                                                                               |
-| [application-builder.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/application-builder.d.ts)         | Defines an interface for building applications with specified answers.                                                                                                                                                                                                      |
+| File                                                                                                                                       | Summary                                                                                                                                                                                                            |
+|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [package-manager-checker.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/package-manager-checker.d.ts) | Defines interface for checking availability of package managers and confirming if they are available. Crucial for managing package installations across different environments within the white_rabbit repository. |
+| [dependency-installer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/dependency-installer.d.ts)       | Defines interface for installing dependencies using specified package manager and project directory.                                                                                                               |
+| [git-initializer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/git-initializer.d.ts)                 | InitializeGitRepository() and createGitignoreFile(), crucial for setting up and customizing Git repositories within the core module of the white_rabbit project.                                                   |
+| [dependency-configurer.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/dependency-configurer.d.ts)     | Defines DependencyConfigurerInterface to manage project dependencies dynamically based on language, enhancing modularity and flexibility in dependency handling within the repositorys architecture.               |
+| [application-builder.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/core/application-builder.d.ts)         | Defines interface for application builder to construct application based on user answers.                                                                                                                          |
 
 </details>
 
 <details closed><summary>src.@types.utils</summary>
 
-| File                                                                                                      | Summary                                                                                                                                                                                        |
-|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [logger.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/utils/logger.d.ts) | Defines LoggerInterface with log, error, and printAsciiArt methods for consistent logging across the white_rabbit repository, ensuring clear communication and error handling in the codebase. |
+| File                                                                                                                          | Summary                                                                                                                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [command-executor.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/utils/command-executor.d.ts) | Defines CommandExecutorInterface for executing commands with options like current working directory and stream I/O.                                                                                           |
+| [logger.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/utils/logger.d.ts)                     | Defines a LoggerInterface for logging messages and printing ASCII art. Essential for enforcing logging standards across the projects utilities and maintaining a consistent user experience.                  |
+| [file-system.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/utils/file-system.d.ts)           | Defines FileSystemInterface with methods for file manipulation, access, and directory handling. Crucial for interacting with the file system in White Rabbits architecture for core functionality operations. |
 
 </details>
 
 <details closed><summary>src.@types.cli</summary>
 
-| File                                                                                                                        | Summary                                                                                                                                            |
-|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| [question-manager.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/cli/question-manager.d.ts) | Defines QuestionManagerInterface interface for asking questions and returning Answers, enhancing modular structure within white_rabbit repository. |
+| File                                                                                                                        | Summary                                                                                                                                                                                               |
+|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [question-manager.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/cli/question-manager.d.ts) | Defines QuestionManagerInterface interface for asking questions, importing Answers interface. Facilitates interaction with the CLI question manager within the white_rabbit repositorys architecture. |
 
 </details>
 
 <details closed><summary>src.@types.common</summary>
 
-| File                                                                                                                                                   | Summary                                                                                                                                                                                                                                                          |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [inquirer-autocomplete-prompt.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/common/inquirer-autocomplete-prompt.d.ts) | Defines Inquirer autocomplete prompt module for seamless integration with existing Inquirer library, facilitating interactive CLI prompts.                                                                                                                       |
-| [answers.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/common/answers.d.ts)                                           | Defines enhanced Inquirer question types to streamline interactive CLI prompts for configuring project settings with autocomplete functionality. Contributing to a smoother user experience and more efficient setup process within the White Rabbit repository. |
+| File                                                                                                                                                   | Summary                                                                                                                                                                                                                                                                                         |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [inquirer-autocomplete-prompt.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/common/inquirer-autocomplete-prompt.d.ts) | Defines type declaration for inquirer-autocomplete-prompt module, facilitating structured interaction within the parent repository.                                                                                                                                                             |
+| [answers.d.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/@types/common/answers.d.ts)                                           | Defines Inquirer extension for Autocomplete questions, augmenting the QuestionMap interface. Specifies answer structure for project setup choices like project name, language & testing tools. Enhances user input experience during project initialization within the White Rabbit repository. |
 
 </details>
 
 <details closed><summary>src.core</summary>
 
-| File                                                                                                                            | Summary                                                                                                                                                                                                                                                                                          |
-|---------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [dependency-configurer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/dependency-configurer.ts)     | Implements a dependency configurer that sets up Tailwind CSS in a project directory. Uses execa for CLI operations, fs for file manipulation. Centralizes config tasks for easy extension.                                                                                                       |
-| [git-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/git-initializer.ts)                 | GitInitializer** class initializes and manages Git repositories. It ensures successful Git repo initialization and creates a.gitignore file based on project type, language, and dependencies. Essential for setting up and organizing projects within the White Rabbit repository architecture. |
-| [package-manager-checker.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/package-manager-checker.ts) | Verifies package manager availability by executing commands and checking versions. Handles multiple package managers and fallbacks. Supporting the architecture with robust package management functionality.                                                                                    |
-| [dependency-installer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/dependency-installer.ts)       | Implements a DependencyInstaller class handling installation of project dependencies. Utilizes execa for executing commands and ora for displaying installation progress. Handles different package managers gracefully.                                                                         |
-| [application-builder.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/application-builder.ts)         | Builds project structure and configurations based on user input, installing dependencies, setting up linting, formatting, and testing tools. Handles Angular project initialization separately. ensures Git integration and directory switching for seamless setup.                              |
+| File                                                                                                                            | Summary                                                                                                                                                                                                                                                                                                                                    |
+|---------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [dependency-configurer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/dependency-configurer.ts)     | Implements a class to configure Tailwind CSS dependencies dynamically in a project directory. Handles setting up Tailwind configuration files and generating necessary CSS content. Key for enhancing project styling without manual setup.                                                                                                |
+| [git-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/git-initializer.ts)                 | Initializing repos and creating.gitignore files. It utilizes external interfaces for executing commands and file system interactions, supporting the core functionality of setting up Git repositories in the project directory.                                                                                                           |
+| [package-manager-checker.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/package-manager-checker.ts) | Detects available package managers and checks their availability for use in the project, ensuring seamless integration with supported managers-pnpm, yarn, and npm. Offering a fallback mechanism by prioritizing alternative managers if the preferred one is unavailable.                                                                |
+| [dependency-installer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/dependency-installer.ts)       | Enables seamless installation of project dependencies with various package managers. Validates package manager availability, constructs install commands dynamically, and provides real-time installation feedback using a spinner. A crucial component for managing project dependencies effectively within the repositorys architecture. |
+| [application-builder.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/application-builder.ts)         | Builds projects, initializes tools, handles dependencies, configures linting, formatting, and testing tools, sets up Git, and changes project directories based on user input for various project types like Angular and Node.js in the repositorys core architecture.                                                                     |
 
 </details>
 
 <details closed><summary>src.core.project-initializer</summary>
 
-| File                                                                                                                                        | Summary                                                                                                                                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [react-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/react-initializer.ts)     | Initiates React project with TypeScript support using create-react-app in specified directory.                                                                                                                                  |
-| [vuejs-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/vuejs-initializer.ts)     | Generates Vue.js project scaffold with TypeScript support by creating necessary configuration files. Handles project creation and TypeScript setup, enhancing Vue.js project initialization.                                    |
-| [nodejs-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/nodejs-initializer.ts)   | Creates Node.js projects using Express.js generator, accelerating project setup in the white_rabbit repository.                                                                                                                 |
-| [angular-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/angular-initializer.ts) | Initialize and run Angular projects with project directories using execa commands. Provides seamless Angular project creation with logging and error handling.                                                                  |
-| [index.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/index.ts)                             | Enables creation of React, Angular, Node.js, and Vue.js projects based on specified project type and language, ensuring project initialization is handled dynamically and efficiently within the repositorys core architecture. |
+| File                                                                                                                                        | Summary                                                                                                                                                                                                                                                                                                            |
+|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [react-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/react-initializer.ts)     | Generates React projects with TypeScript support, leveraging the command executor interface for setup.                                                                                                                                                                                                             |
+| [vuejs-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/vuejs-initializer.ts)     | Creates a Vue.js project with TypeScript support, handling project initialization, dependencies installation, and configuration setup. The function ensures seamless Vue.js project creation and properly configures TypeScript support for enhanced development capabilities within the repositorys architecture. |
+| [nodejs-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/nodejs-initializer.ts)   | Initiates Node.js project setup, handling package.json creation, installing dependencies, and configuring ESLint, Prettier, Jest, Mocha, and Testing Library. Ensures smooth project initialization, logging success or failure, forking on user input.                                                            |
+| [angular-initializer.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/angular-initializer.ts) | Initialize and run Angular projects with CLI commands. Handles project directory creation and Angular setup. Facilitates smooth project initialization with logging and error handling. Centralizes CLI commands execution for efficient project setup.                                                            |
+| [index.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/core/project-initializer/index.ts)                             | Enables dynamic creation of React, Angular, Node.js, and Vue.js projects with specified tools and dependencies based on user input. Abstraction layer for project initialization logic in the core architecture.                                                                                                   |
 
 </details>
 
 <details closed><summary>src.utils</summary>
 
-| File                                                                                                               | Summary                                                                                                                                                                                              |
-|--------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [dependencies.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/dependencies.ts)         | Retrieves dependencies based on project type defined in the repositorys architecture. Maps specific dependencies for React, Vue.js, and Node.js projects to streamline project setup and management. |
-| [summary.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/summary.ts)                   | Outputs project setup details in a structured table using chalk and cli-table3, enhancing readability and user experience.                                                                           |
-| [Logger.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/Logger.ts)                     | Implements a colorful Logger with log and error message methods, and an ASCII art display function for the white_rabbit repository.                                                                  |
-| [path-suggestions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/path-suggestions.ts) | Identifies valid directories based on user input, excluding common system folders. Logs errors and returns a list of suggested directories.                                                          |
+| File                                                                                                               | Summary                                                                                                                                                                                                                                                                                                                     |
+|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [dependencies.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/dependencies.ts)         | Extracts dependencies based on project types like React, Vue.js, or Node.js from a map, aiding in managing necessary libraries for different project frameworks.                                                                                                                                                            |
+| [file-system.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/file-system.ts)           | Implements filesystem operations for writing, appending, creating directories, checking access, reading directories, and getting file stats within the white_rabbit repositorys architecture.                                                                                                                               |
+| [command-executor.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/command-executor.ts) | Implements a CommandExecutor class handling execution of shell commands using execa. Facilitates executing commands with customizable options like current working directory and standard input/output handling for efficient command line operations within the white_rabbit repositorys architecture.                     |
+| [summary.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/summary.ts)                   | Prints a summary of project details using a color-formatted table. Allows visualizing key selections such as project name, type, language, dependencies, tools, and Git initialization status. Facilitates easy grasp of project setup information for better organization and planning within the repository architecture. |
+| [Logger.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/Logger.ts)                     | Employs a colorful Logger to produce ASCII art and custom log messages based on the given severity level. Enhances readability by using chalk.                                                                                                                                                                              |
+| [path-suggestions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/path-suggestions.ts) | Generates directory suggestions based on input, filtering out certain directories. Conducts error logging for file system operations. Main features include resolving paths, reading directory contents, and handling errors gracefully.                                                                                    |
 
 </details>
 
 <details closed><summary>src.utils.configurations</summary>
 
-| File                                                                                                                                          | Summary                                                                                                                                                                                                                                                                             |
-|-----------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [mocha-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/mocha-config.ts)                     | Generates Mocha configuration and test setup dynamically based on project type. Writes config file, updates package.json scripts, creates test folder, and adds a sample test file. Enhances testing capabilities for React and Vue.js projects within the repository architecture. |
-| [jest-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/jest-config.ts)                       | Generates Jest configurations based on project types to enhance testing setup. Creates Jest config files, updates package.json scripts for running tests. Improves testing environments for React, Vue.js, and Node.js projects dynamically within the repository structure.        |
-| [testing-library-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/testing-library-config.ts) | Generates and updates Jest testing configuration for Vue.js or general projects. Adds setup files and scripts to enhance testing functionalities.                                                                                                                                   |
-| [prettier-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/prettier-config.ts)               | Generates Prettier configuration file for projects in white_rabbit repository, enforcing consistent code style with semicolons, single quotes, and trailing commas.                                                                                                                 |
-| [eslint-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/eslint-config.ts)                   | Generates ESLint configuration file based on specified project directory, ensuring browser, ES2021, React, and TypeScript support with recommended rules and Prettier integration.                                                                                                  |
+| File                                                                                                                                          | Summary                                                                                                                                                                                                                                                  |
+|-----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [mocha-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/mocha-config.ts)                     | Generates and updates Mocha configuration and test files based on project type, enhancing test capabilities and script commands in the repository.                                                                                                       |
+| [jest-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/jest-config.ts)                       | Generates Jest configuration based on project type, updates setup files for React, Vue.js, or Node.js projects, and enhances package.json with Jest test script.                                                                                         |
+| [testing-library-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/testing-library-config.ts) | Generates Jest configurations based on project type, Vue.js-specific setup if applicable, adds jest-dom to testing environment, and updates package.json for Jest script, enhancing testing capabilities in the White Rabbit repository.                 |
+| [prettier-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/prettier-config.ts)               | Generates Prettier configuration file for project directory, defining formatting rules.                                                                                                                                                                  |
+| [eslint-config.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/utils/configurations/eslint-config.ts)                   | Generates ESLint configuration file with preset rules for React and TypeScript projects. Dynamically creates.eslintrc.json in the specified project directory based on recommended ESLint and Prettier configurations to enforce code quality standards. |
 
 </details>
 
 <details closed><summary>src.cli</summary>
 
-| File                                                                                                   | Summary                                                                                                                                                                                                                                                                     |
-|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [cli-manager.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/cli-manager.ts) | Manages CLI interactions, orchestrates app building process, and handles errors. Initiates welcome message, prompts user with questions, and logs outcomes. Key roles include question handling, app construction, and feedback provision in White Rabbit CLI architecture. |
+| File                                                                                                   | Summary                                                                                                                                                                         |
+|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [cli-manager.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/cli-manager.ts) | Orchestrates question prompts and application building, handling success and error logging. Implements a colorful log feature and ASCII art for a personalized welcome message. |
 
 </details>
 
 <details closed><summary>src.cli.questions</summary>
 
-| File                                                                                                                         | Summary                                                                                                                                                                                                                                                                                                           |
-|------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [question-manager.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/question-manager.ts)   | Manages interactive CLI questions, guiding users through project setup decisions. Utilizes inquirer for prompting and customization, delegates to run project-specific initializers, and gracefully handles errors and user feedback. Supports seamless project configuration within the white_rabbit repository. |
-| [common-questions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/common-questions.ts)   | Generates distinct questions based on project type for additional tool installations (dependencies, linting, formatting, testing), package manager preference, and git initialization. Supports decision-making during project setup for non-Angular projects.                                                    |
-| [initial-questions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/initial-questions.ts) | Defines initial project setup questions for CLI interactions, including project name, destination path, project type, and language preferences. Utilizes autocomplete and validation for enhanced user input experience. Facilitates streamlined project initialization for various frameworks and languages.     |
+| File                                                                                                                         | Summary                                                                                                                                                                                                                                                           |
+|------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [question-manager.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/question-manager.ts)   | Manages user prompts for project configuration, based on answers guides actions. Supports customization and decision-making during setup, with error handling.                                                                                                    |
+| [common-questions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/common-questions.ts)   | Generates common questions for project setup based on project type, providing options for dependencies, linting tools, formatting tools, testing tools, and initializing a git repository. Supports customization for different project types, excluding Angular. |
+| [initial-questions.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/cli/questions/initial-questions.ts) | Inquire project name, destination path, project type, language, and package manager choices. Utilize filesystem interface for directory suggestions and conditional prompts based on project type selection.                                                      |
 
 </details>
 
 <details closed><summary>src.__tests__.cli</summary>
 
-| File                                                                                                                       | Summary                                                                                                                                                                                                                    |
-|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [cli-manager.test.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/__tests__/cli/cli-manager.test.ts) | Prints welcome message, builds app if user confirms, handles rejection, and logs errors. Mocks dependencies for isolated testing. Maintains logging consistency. Ensures a smooth user experience during CLI interactions. |
+| File                                                                                                                       | Summary                                                                                                                                                                                 |
+|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [cli-manager.test.ts](https://github.com/Romain-Portanguen/white_rabbit/blob/master/src/__tests__/cli/cli-manager.test.ts) | Printing welcome message, building application based on user confirmation, handling installation errors. Uses mocks for dependencies and spies on logger methods during test execution. |
 
 </details>
 
@@ -281,7 +242,7 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 
 **System Requirements:**
 
-* **TypeScript**: `version x.y.z`
+- **TypeScript**: `version x.y.z`
 
 ### ⚙️ Installation
 
@@ -294,11 +255,13 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 > ```
 >
 > 2. Change to the project directory:
+>
 > ```console
 > $ cd white_rabbit
 > ```
 >
 > 3. Install the dependencies:
+>
 > ```console
 > $ npm install
 > ```
@@ -308,15 +271,17 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 <h4>From <code>source</code></h4>
 
 > Run white_rabbit using the command below:
+>
 > ```console
-> $ npm run build && node dist/main.js
+> $ npm run build && npm start
 > ```
 
 ### 🧪 Tests
 
 > Run the test suite using the command below:
+>
 > ```console
-> $ npm test
+> $ npm run test
 > ```
 
 ---
@@ -334,24 +299,33 @@ Contributions are welcome! Here are several ways you can contribute:
 
 1. **Fork the Repository**: Start by forking the project repository to your github account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+
    ```sh
    git clone https://github.com/Romain-Portanguen/white_rabbit
    ```
+
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+
    ```sh
    git checkout -b new-feature-x
    ```
+
 4. **Make Your Changes**: Develop and test your changes locally.
 5. **Commit Your Changes**: Commit with a clear message describing your updates.
+
    ```sh
    git commit -m 'Implemented new feature x.'
    ```
+
 6. **Push to github**: Push the changes to your forked repository.
+
    ```sh
    git push origin new-feature-x
    ```
+
 7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
 8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+
 </details>
 
 <details closed>
