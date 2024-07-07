@@ -1,9 +1,9 @@
+import { resolve } from 'path';
 import CommandExecutorInterface from '../../@types/utils/command-executor';
 import FileSystemInterface from '../../@types/utils/file-system';
 import PackageManagerChecker from '../../core/package-manager-checker';
 import ora from 'ora';
 import Logger from '../../utils/logger';
-import { resolve } from 'path';
 import { Answers } from '../../@types/common/answers';
 import { generateESLintConfig } from '../../utils/configurations/eslint-config';
 import { generatePrettierConfig } from '../../utils/configurations/prettier-config';
@@ -23,7 +23,7 @@ export async function createNodeJsProject(
     dependencies: string[] = [],
     lintingTools: string[] = [],
     formattingTools: string[] = [],
-    testingTools: string[]
+    testingTools: string[] = []
 ): Promise<void> {
     const absoluteProjectDir = resolve(projectDir);
 
@@ -95,7 +95,7 @@ export async function runNodeJsInit(
     fileSystem: FileSystemInterface,
     packageManagerChecker: PackageManagerChecker
 ): Promise<void> {
-    const { projectName, destination, dependencies, lintingTools, formattingTools, testingTools } = answers;
+    const { projectName, destination, dependencies = [], lintingTools = [], formattingTools = [], testingTools = [] } = answers;
     const projectDir = `${destination}/${projectName}`;
     const spinner = ora('Initializing Node.js project...').start();
 
