@@ -79,15 +79,6 @@ const getCommonQuestions = (answers: Answers): DistinctQuestion<Answers>[] => {
             }
         },
         {
-            type: 'list',
-            name: 'packageManager',
-            message: 'Which package manager do you want to use?',
-            choices: ['npm', 'yarn', 'pnpm'],
-            when: (answers) => {
-                return answers.projectType !== 'Angular';
-            }
-        },
-        {
             type: 'confirm',
             name: 'initializeGit',
             message: 'Do you want to initialize a git repository?',

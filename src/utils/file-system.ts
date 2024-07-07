@@ -25,4 +25,8 @@ export class FileSystem implements FileSystemInterface {
     public async stat(path: string): Promise<{ isDirectory(): boolean }> {
         return await fs.stat(path);
     }
+
+    public async readFile(path: string, encoding: BufferEncoding): Promise<string> {
+        return await fs.readFile(path, encoding);
+    }
 }

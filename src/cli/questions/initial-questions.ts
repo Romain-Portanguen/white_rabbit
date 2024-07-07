@@ -35,6 +35,16 @@ const initialQuestions = (fileSystem: FileSystemInterface): DistinctQuestion<Ans
         when: (answers) => {
             return answers.projectType !== 'Angular';
         }
+    },
+    {
+        type: 'list',
+        name: 'packageManager',
+        message: 'Which package manager do you want to use?',
+        choices: ['npm', 'yarn', 'pnpm'],
+        default: 'npm',
+        when: (answers) => {
+            return answers.projectType !== 'Node.js' && answers.projectType !== 'Angular';
+        }
     }
 ];
 

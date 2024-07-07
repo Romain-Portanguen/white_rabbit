@@ -11,12 +11,12 @@ import { FileSystem } from './utils/file-system';
 
 const commandExecutor = new CommandExecutor();
 const fileSystem = new FileSystem();
-const questionManager = new QuestionManager(commandExecutor, fileSystem);
 const packageManagerChecker = new PackageManagerChecker();
+const questionManager = new QuestionManager(commandExecutor, fileSystem);
 const dependencyInstaller = new DependencyInstaller(packageManagerChecker, commandExecutor);
 const dependencyConfigurer = new DependencyConfigurer(commandExecutor, fileSystem);
 const gitInitializer = new GitInitializer(commandExecutor, fileSystem);
-const applicationBuilder = new ApplicationBuilder(dependencyInstaller, dependencyConfigurer, gitInitializer, commandExecutor, fileSystem);
+const applicationBuilder = new ApplicationBuilder(dependencyInstaller, dependencyConfigurer, gitInitializer, commandExecutor, fileSystem, packageManagerChecker);
 const cliManager = new CLIManager(questionManager, applicationBuilder);
 
 cliManager.run();

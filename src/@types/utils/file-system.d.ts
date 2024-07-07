@@ -5,4 +5,5 @@ export default interface FileSystemInterface {
   access(path: string): Promise<void>;
   readdir(path: string): Promise<string[]>;
   stat(path: string): Promise<{ isDirectory(): boolean }>;
+  readFile(path: string, encoding: string): Promise<string>;
 }

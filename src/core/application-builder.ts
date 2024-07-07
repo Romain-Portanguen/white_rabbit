@@ -1,39 +1,43 @@
-import ora from 'ora';
 import { createProject } from './project-initializer/index';
 import { generateESLintConfig } from '../utils/configurations/eslint-config';
 import { generatePrettierConfig } from '../utils/configurations/prettier-config';
 import { generateJestConfig } from '../utils/configurations/jest-config';
 import { generateMochaConfig } from '../utils/configurations/mocha-config';
 import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config';
+import { runAngularCLI } from './project-initializer/angular-initializer';
+import { runNodeJsInit } from './project-initializer/nodejs-initializer';
 import { Answers } from '../@types/common/answers';
 import { join } from 'path';
-import { runAngularCLI } from './project-initializer/angular-initializer';
-import DependencyInstallerInterface from '../@types/core/dependency-installer';
-import DependencyConfigurerInterface from '../@types/core/dependency-configurer';
-import GitInitializerInterface from '../@types/core/git-initializer';
+import ora from 'ora';
+import DependencyInstaller from './dependency-installer';
+import DependencyConfigurer from './dependency-configurer';
+import GitInitializer from './git-initializer';
 import ApplicationBuilderInterface from '../@types/core/application-builder';
 import CommandExecutorInterface from '../@types/utils/command-executor';
 import FileSystemInterface from '../@types/utils/file-system';
-
+import PackageManagerChecker from '../core/package-manager-checker';
 class ApplicationBuilder implements ApplicationBuilderInterface {
-    private dependencyInstaller: DependencyInstallerInterface;
-    private dependencyConfigurer: DependencyConfigurerInterface;
-    private gitInitializer: GitInitializerInterface;
+    private dependencyInstaller: DependencyInstaller;
+    private dependencyConfigurer: DependencyConfigurer;
+    private gitInitializer: GitInitializer;
     private commandExecutor: CommandExecutorInterface;
     private fileSystem: FileSystemInterface;
+    private packageManagerChecker: PackageManagerChecker;
 
     constructor(
-        dependencyInstaller: DependencyInstallerInterface,
-        dependencyConfigurer: DependencyConfigurerInterface,
-        gitInitializer: GitInitializerInterface,
+        dependencyInstaller: DependencyInstaller,
+        dependencyConfigurer: DependencyConfigurer,
+        gitInitializer: GitInitializer,
         commandExecutor: CommandExecutorInterface,
-        fileSystem: FileSystemInterface
+        fileSystem: FileSystemInterface,
+        packageManagerChecker: PackageManagerChecker
     ) {
         this.dependencyInstaller = dependencyInstaller;
         this.dependencyConfigurer = dependencyConfigurer;
         this.gitInitializer = gitInitializer;
         this.commandExecutor = commandExecutor;
         this.fileSystem = fileSystem;
+        this.packageManagerChecker = packageManagerChecker;
     }
 
     public async buildApplication(answers: Answers): Promise<void> {
@@ -41,13 +45,13 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
             projectName,
             projectType,
             language,
-            dependencies,
+            dependencies = [],
             packageManager,
             initializeGit,
             destination,
-            lintingTools,
-            formattingTools,
-            testingTools
+            lintingTools = [],
+            formattingTools = [],
+            testingTools = []
         } = answers;
 
         const projectDir = join(destination, projectName);
@@ -65,15 +69,37 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
             return;
         }
 
+        if (projectType === 'Node.js') {
+            try {
+                await runNodeJsInit(answers, this.commandExecutor, this.fileSystem, this.packageManagerChecker);
+            } catch (error) {
+                console.error('Error setting up Node.js project:', error);
+                throw error;
+            }
+            return;
+        }
+
         const spinner = ora('Setting up your project...').start();
 
         try {
-            await createProject(projectDir, projectType, language, this.commandExecutor, this.fileSystem);
+            await createProject(
+                projectDir,
+                projectType,
+                language,
+                projectName,
+                this.commandExecutor,
+                this.fileSystem,
+                this.packageManagerChecker,
+                dependencies,
+                lintingTools,
+                formattingTools,
+                testingTools
+            );
 
             if (answers.installDependencies && dependencies) {
                 const filteredDependencies = dependencies.filter(dep => dep !== 'none');
                 if (filteredDependencies.length > 0) {
-                    await this.dependencyInstaller.installDependencies(filteredDependencies, packageManager, projectDir);
+                    await this.dependencyInstaller.installDependencies(filteredDependencies, packageManager || 'npm', projectDir);
                 }
 
                 await this.dependencyConfigurer.configureDependencies(projectDir, filteredDependencies, language);
@@ -93,7 +119,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
 
             if (answers.installTestingTools && testingTools) {
                 if (testingTools.length > 0) {
-                    await this.configureTestingTools(testingTools, packageManager, projectDir, projectType);
+                    await this.configureTestingTools(testingTools, packageManager || 'npm', projectDir, projectType);
                 }
             }            
 
@@ -144,7 +170,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
             console.error(`Error changing directory: ${error.message}`);
             throw new Error(`Error changing directory: ${error.message}`);
         }
-    } 
+    }
 }
 
 export default ApplicationBuilder;

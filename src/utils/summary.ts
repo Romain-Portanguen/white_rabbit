@@ -19,7 +19,7 @@ export const printSummary = (answers: Answers): void => {
             [chalk.green('Project Type'), answers.projectType],
             [chalk.green('Language'), answers.language || 'JavaScript'],
             [chalk.green('Dependencies'), answers.dependencies?.join(', ') || 'None'],
-            [chalk.green('Package Manager'), answers.packageManager],
+            [chalk.green('Package Manager'), answers.packageManager || 'npm'],
             [chalk.green('Testing Tools'), answers.testingTools?.join(', ') || 'None'],
             [chalk.green('Linting Tools'), answers.lintingTools?.join(', ') || 'None'],
             [chalk.green('Formatting Tools'), answers.formattingTools?.join(', ') || 'None'],
