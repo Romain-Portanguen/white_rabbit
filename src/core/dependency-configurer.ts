@@ -1,10 +1,18 @@
-import { execa } from 'execa';
-import { promises as fs } from 'fs';
 import { join } from 'path';
 import ora from 'ora';
 import DependencyConfigurerInterface from '../@types/core/dependency-configurer';
+import CommandExecutorInterface from '../@types/utils/command-executor';
+import FileSystemInterface from '../@types/utils/file-system';
 
 export default class DependencyConfigurer implements DependencyConfigurerInterface {
+    private commandExecutor: CommandExecutorInterface;
+    private fileSystem: FileSystemInterface;
+
+    constructor(commandExecutor: CommandExecutorInterface, fileSystem: FileSystemInterface) {
+        this.commandExecutor = commandExecutor;
+        this.fileSystem = fileSystem;
+    }
+
     public async configureDependencies(projectDir: string, dependencies: string[], language: string): Promise<void> {
         const srcDir = join(projectDir, 'src');
 
@@ -17,7 +25,7 @@ export default class DependencyConfigurer implements DependencyConfigurerInterfa
         const spinner = ora('Configuring Tailwind CSS...').start();
 
         try {
-            await execa('npx', ['tailwindcss', 'init', '-p'], { cwd: projectDir });
+            await this.commandExecutor.execute('npx tailwindcss init -p', projectDir);
 
             const tailwindConfig = `
 module.exports = {
@@ -33,7 +41,7 @@ module.exports = {
 };
 `;
 
-            await fs.writeFile(join(projectDir, 'tailwind.config.js'), tailwindConfig);
+            await this.fileSystem.writeFile(join(projectDir, 'tailwind.config.js'), tailwindConfig);
 
             const postcssConfig = `
 module.exports = {
@@ -44,7 +52,7 @@ module.exports = {
 };
 `;
 
-            await fs.writeFile(join(projectDir, 'postcss.config.js'), postcssConfig);
+            await this.fileSystem.writeFile(join(projectDir, 'postcss.config.js'), postcssConfig);
 
             const indexCssPath = join(srcDir, 'index.css');
             const indexCssContent = `
@@ -53,7 +61,7 @@ module.exports = {
 @tailwind utilities;
 `;
 
-            await fs.appendFile(indexCssPath, indexCssContent);
+            await this.fileSystem.appendFile(indexCssPath, indexCssContent);
             spinner.succeed('Tailwind CSS configured successfully');
         } catch (error) {
             spinner.fail('Error configuring Tailwind CSS');

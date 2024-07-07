@@ -1,28 +1,32 @@
+import ora from 'ora';
 import { createProject } from './project-initializer/index';
 import { generateESLintConfig } from '../utils/configurations/eslint-config';
 import { generatePrettierConfig } from '../utils/configurations/prettier-config';
 import { generateJestConfig } from '../utils/configurations/jest-config';
 import { generateMochaConfig } from '../utils/configurations/mocha-config';
 import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config';
-import DependencyInstaller from './dependency-installer';
-import DependencyConfigurer from './dependency-configurer';
-import GitInitializer from './git-initializer';
 import { Answers } from '../@types/common/answers';
-import ApplicationBuilderInterface from '../@types/core/application-builder';
 import { join } from 'path';
-import ora from 'ora';
 import { promises as fs } from 'fs';
 import { runAngularCLI } from './project-initializer/angular-initializer';
+import DependencyInstallerInterface from '../@types/core/dependency-installer';
+import DependencyConfigurerInterface from '../@types/core/dependency-configurer';
+import GitInitializerInterface from '../@types/core/git-initializer';
+import ApplicationBuilderInterface from '../@types/core/application-builder';
 
 class ApplicationBuilder implements ApplicationBuilderInterface {
-    private dependencyInstaller: DependencyInstaller;
-    private dependencyConfigurer: DependencyConfigurer;
-    private gitInitializer: GitInitializer;
+    private dependencyInstaller: DependencyInstallerInterface;
+    private dependencyConfigurer: DependencyConfigurerInterface;
+    private gitInitializer: GitInitializerInterface;
 
-    constructor() {
-        this.dependencyInstaller = new DependencyInstaller();
-        this.dependencyConfigurer = new DependencyConfigurer();
-        this.gitInitializer = new GitInitializer();
+    constructor(
+        dependencyInstaller: DependencyInstallerInterface,
+        dependencyConfigurer: DependencyConfigurerInterface,
+        gitInitializer: GitInitializerInterface
+    ) {
+        this.dependencyInstaller = dependencyInstaller;
+        this.dependencyConfigurer = dependencyConfigurer;
+        this.gitInitializer = gitInitializer;
     }
 
     public async buildApplication(answers: Answers): Promise<void> {

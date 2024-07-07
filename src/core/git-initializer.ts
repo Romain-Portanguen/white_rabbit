@@ -1,17 +1,25 @@
 import { execaCommand } from 'execa';
 import ora from 'ora';
-import { promises as fs } from 'fs';
 import { join } from 'path';
 import GitInitializerInterface from '../@types/core/git-initializer';
+import CommandExecutorInterface from '../@types/utils/command-executor';
+import FileSystemInterface from '../@types/utils/file-system';
 
-export default class GitInitializer implements GitInitializerInterface {
+class GitInitializer implements GitInitializerInterface {
+    private commandExecutor: CommandExecutorInterface;
+    private fileSystem: FileSystemInterface;
+
+    constructor(commandExecutor: CommandExecutorInterface, fileSystem: FileSystemInterface) {
+        this.commandExecutor = commandExecutor;
+        this.fileSystem = fileSystem;
+    }
+
     public async initializeGitRepository(projectDir: string): Promise<void> {
         const spinner = ora('Initializing Git repository...').start();
 
         try {
-            await execaCommand('git --version');
-            
-            await execaCommand('git init', { cwd: projectDir });
+            await this.commandExecutor.execute('git --version', projectDir);
+            await this.commandExecutor.execute('git init', projectDir);
             spinner.succeed('Git repository initialized successfully');
         } catch (error: any) {
             spinner.fail(`Error initializing Git repository: ${error.message}`);
@@ -71,7 +79,7 @@ postcss.config.js
         `;
 
         try {
-            await fs.writeFile(join(projectDir, '.gitignore'), gitignoreContent);
+            await this.fileSystem.writeFile(join(projectDir, '.gitignore'), gitignoreContent);
             spinner.succeed('.gitignore file created successfully');
         } catch (error: any) {
             spinner.fail('Error creating .gitignore file');
@@ -79,3 +87,5 @@ postcss.config.js
         }
     }
 }
+
+export default GitInitializer;

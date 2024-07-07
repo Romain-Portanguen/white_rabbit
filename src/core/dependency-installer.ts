@@ -1,14 +1,19 @@
-import { execaCommand } from 'execa';
 import ora from 'ora';
 import DependencyInstallerInterface from '../@types/core/dependency-installer';
 import PackageManagerCheckerInterface from '../@types/core/package-manager-checker';
+import CommandExecutorInterface from '../@types/utils/command-executor';
 import PackageManagerChecker from './package-manager-checker';
 
 export default class DependencyInstaller implements DependencyInstallerInterface {
     private packageManagerChecker: PackageManagerCheckerInterface;
+    private commandExecutor: CommandExecutorInterface;
 
-    constructor(packageManagerChecker: PackageManagerCheckerInterface = new PackageManagerChecker()) {
+    constructor(
+        packageManagerChecker: PackageManagerCheckerInterface = new PackageManagerChecker(),
+        commandExecutor: CommandExecutorInterface
+    ) {
         this.packageManagerChecker = packageManagerChecker;
+        this.commandExecutor = commandExecutor;
     }
 
     public async installDependencies(dependencies: string[], packageManager: string, projectDir: string): Promise<void> {
@@ -22,7 +27,7 @@ export default class DependencyInstaller implements DependencyInstallerInterface
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
 
         try {
-            await execaCommand(command, { cwd: projectDir });
+            await this.commandExecutor.execute(command, projectDir);
             spinner.succeed('Dependencies installed successfully');
         } catch (error: any) {
             spinner.fail(`Error installing dependencies: ${error.message}`);
