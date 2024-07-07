@@ -25,7 +25,7 @@ export default class DependencyConfigurer implements DependencyConfigurerInterfa
         const spinner = ora('Configuring Tailwind CSS...').start();
 
         try {
-            await this.commandExecutor.execute('npx tailwindcss init -p', projectDir);
+            await this.commandExecutor.execute('npx tailwindcss init -p', { cwd: projectDir});
 
             const tailwindConfig = `
 module.exports = {

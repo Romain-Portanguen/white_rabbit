@@ -9,9 +9,9 @@ import PackageManagerChecker from './core/package-manager-checker';
 import { CommandExecutor } from './utils/command-executor';
 import { FileSystem } from './utils/file-system';
 
-const questionManager = new QuestionManager();
 const commandExecutor = new CommandExecutor();
 const fileSystem = new FileSystem();
+const questionManager = new QuestionManager(commandExecutor);
 const packageManagerChecker = new PackageManagerChecker();
 const dependencyInstaller = new DependencyInstaller(packageManagerChecker, commandExecutor);
 const dependencyConfigurer = new DependencyConfigurer(commandExecutor, fileSystem);

@@ -27,7 +27,7 @@ export default class DependencyInstaller implements DependencyInstallerInterface
         const spinner = ora(`Installing dependencies with ${packageManager}...`).start();
 
         try {
-            await this.commandExecutor.execute(command, projectDir);
+            await this.commandExecutor.execute(command, {cwd: projectDir});
             spinner.succeed('Dependencies installed successfully');
         } catch (error: any) {
             spinner.fail(`Error installing dependencies: ${error.message}`);

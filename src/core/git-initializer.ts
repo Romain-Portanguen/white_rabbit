@@ -18,8 +18,8 @@ class GitInitializer implements GitInitializerInterface {
         const spinner = ora('Initializing Git repository...').start();
 
         try {
-            await this.commandExecutor.execute('git --version', projectDir);
-            await this.commandExecutor.execute('git init', projectDir);
+            await this.commandExecutor.execute('git --version', { cwd: projectDir });
+            await this.commandExecutor.execute('git init', { cwd: projectDir });
             spinner.succeed('Git repository initialized successfully');
         } catch (error: any) {
             spinner.fail(`Error initializing Git repository: ${error.message}`);

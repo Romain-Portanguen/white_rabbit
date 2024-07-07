@@ -1,12 +1,13 @@
 import inquirer from 'inquirer';
 import inquirerAutocompletePrompt from 'inquirer-autocomplete-prompt';
-import { Answers } from '../../@types/common/answers';
 import QuestionManagerInterface from '../../@types/cli/question-manager';
 import initialQuestions from './initial-questions';
 import getCommonQuestions from './common-questions';
 import { printSummary } from '../../utils/summary';
 import { runAngularCLI } from '../../core/project-initializer/angular-initializer';
+import { Answers } from '../../@types/common/answers';
 import Logger from '../../utils/logger';
+import CommandExecutorInterface from '../../@types/utils/command-executor';
 
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
@@ -14,13 +15,19 @@ const logger = new Logger(USE_COLORS);
 inquirer.registerPrompt('autocomplete', inquirerAutocompletePrompt as any);
 
 class QuestionManager implements QuestionManagerInterface {
+    private commandExecutor: CommandExecutorInterface;
+
+    constructor(commandExecutor: CommandExecutorInterface) {
+        this.commandExecutor = commandExecutor;
+    }
+
     async askQuestions(): Promise<Answers> {
         while (true) {
             try {
                 let answers: Answers = await inquirer.prompt<Answers>(initialQuestions);
 
                 if (answers.projectType === 'Angular') {
-                    await runAngularCLI(answers);
+                    await runAngularCLI(answers, this.commandExecutor);
                     answers.confirm = true;
                     return answers;
                 }
