@@ -1,3 +1,3 @@
 export default interface CommandExecutorInterface {
-  execute(command: string, cwd: string): Promise<void>;
+  execute(command: string, options?: { cwd?: string; stdio?: 'pipe' | 'ignore' | 'inherit' | readonly StdioOption[] }): Promise<void>;
 }

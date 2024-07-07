@@ -16,7 +16,7 @@ const packageManagerChecker = new PackageManagerChecker();
 const dependencyInstaller = new DependencyInstaller(packageManagerChecker, commandExecutor);
 const dependencyConfigurer = new DependencyConfigurer(commandExecutor, fileSystem);
 const gitInitializer = new GitInitializer(commandExecutor, fileSystem);
-const applicationBuilder = new ApplicationBuilder(dependencyInstaller, dependencyConfigurer, gitInitializer);
+const applicationBuilder = new ApplicationBuilder(dependencyInstaller, dependencyConfigurer, gitInitializer, commandExecutor, fileSystem);
 const cliManager = new CLIManager(questionManager, applicationBuilder);
 
 cliManager.run();

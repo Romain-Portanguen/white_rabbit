@@ -7,26 +7,33 @@ import { generateMochaConfig } from '../utils/configurations/mocha-config';
 import { generateTestingLibraryConfig } from '../utils/configurations/testing-library-config';
 import { Answers } from '../@types/common/answers';
 import { join } from 'path';
-import { promises as fs } from 'fs';
 import { runAngularCLI } from './project-initializer/angular-initializer';
 import DependencyInstallerInterface from '../@types/core/dependency-installer';
 import DependencyConfigurerInterface from '../@types/core/dependency-configurer';
 import GitInitializerInterface from '../@types/core/git-initializer';
 import ApplicationBuilderInterface from '../@types/core/application-builder';
+import CommandExecutorInterface from '../@types/utils/command-executor';
+import FileSystemInterface from '../@types/utils/file-system';
 
 class ApplicationBuilder implements ApplicationBuilderInterface {
     private dependencyInstaller: DependencyInstallerInterface;
     private dependencyConfigurer: DependencyConfigurerInterface;
     private gitInitializer: GitInitializerInterface;
+    private commandExecutor: CommandExecutorInterface;
+    private fileSystem: FileSystemInterface;
 
     constructor(
         dependencyInstaller: DependencyInstallerInterface,
         dependencyConfigurer: DependencyConfigurerInterface,
-        gitInitializer: GitInitializerInterface
+        gitInitializer: GitInitializerInterface,
+        commandExecutor: CommandExecutorInterface,
+        fileSystem: FileSystemInterface
     ) {
         this.dependencyInstaller = dependencyInstaller;
         this.dependencyConfigurer = dependencyConfigurer;
         this.gitInitializer = gitInitializer;
+        this.commandExecutor = commandExecutor;
+        this.fileSystem = fileSystem;
     }
 
     public async buildApplication(answers: Answers): Promise<void> {
@@ -50,7 +57,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
         if (projectType === 'Angular') {
             console.log(`Initializing Angular project: ${projectName} at ${projectDir}`);
             try {
-                await runAngularCLI(answers);
+                await runAngularCLI(answers, this.commandExecutor);
             } catch (error) {
                 console.error('Error setting up Angular project:', error);
                 throw error;
@@ -61,7 +68,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
         const spinner = ora('Setting up your project...').start();
 
         try {
-            await createProject(projectDir, projectType, language);
+            await createProject(projectDir, projectType, language, this.commandExecutor, this.fileSystem);
 
             if (answers.installDependencies && dependencies) {
                 const filteredDependencies = dependencies.filter(dep => dep !== 'none');
@@ -128,14 +135,16 @@ class ApplicationBuilder implements ApplicationBuilderInterface {
 
     private async changeToProjectDirectory(projectDir: string): Promise<void> {
         try {
-            await fs.access(projectDir);
+            if (this.fileSystem.access) {
+                await this.fileSystem.access(projectDir);
+            }
             process.chdir(projectDir);
             console.log(`You are now in the project directory: ${process.cwd()}`);
         } catch (error: any) {
             console.error(`Error changing directory: ${error.message}`);
             throw new Error(`Error changing directory: ${error.message}`);
         }
-    }
+    } 
 }
 
 export default ApplicationBuilder;

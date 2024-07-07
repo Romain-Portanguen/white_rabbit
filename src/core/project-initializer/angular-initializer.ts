@@ -1,30 +1,39 @@
-import { execaCommand } from 'execa';
 import { resolve, basename } from 'path';
 import { Answers } from '../../@types/common/answers';
-import { promises as fs } from 'fs';
 import ora from 'ora';
 import Logger from '../../utils/logger';
+import CommandExecutorInterface from '../../@types/utils/command-executor';
+import FileSystemInterface from '../../@types/utils/file-system';
 
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
 
-export async function createAngularProject(projectDir: string): Promise<void> {
+export async function createAngularProject(
+    projectDir: string,
+    commandExecutor: CommandExecutorInterface,
+    fileSystem: FileSystemInterface
+): Promise<void> {
     const absoluteProjectDir = resolve(projectDir);
     const projectName = basename(projectDir);
 
     try {
-        await fs.mkdir(absoluteProjectDir, { recursive: true });
+        if (fileSystem.mkdir) {
+            await fileSystem.mkdir(absoluteProjectDir, { recursive: true });
+        }
         process.chdir(absoluteProjectDir);
 
         const command = `npx @angular/cli new ${projectName} --strict`;
 
-        await execaCommand(command);
+        await commandExecutor.execute(command, { cwd: absoluteProjectDir });
     } finally {
         process.chdir(absoluteProjectDir);
     }
 }
 
-export async function runAngularCLI(answers: Answers): Promise<void> {
+export async function runAngularCLI(
+    answers: Answers,
+    commandExecutor: CommandExecutorInterface
+): Promise<void> {
     const { projectName, destination } = answers;
     const projectDir = `${destination}/${projectName}`;
     const spinner = ora('Initializing Angular project...').start();
@@ -32,7 +41,7 @@ export async function runAngularCLI(answers: Answers): Promise<void> {
     try {
         spinner.stop();
         const command = `npx @angular/cli new ${projectName} --strict`;
-        await execaCommand(command, { stdio: 'inherit', cwd: destination });
+        await commandExecutor.execute(command, { stdio: 'inherit', cwd: destination });
         spinner.succeed(`Angular project created successfully at ${projectDir}`);
         logger.log('Application created successfully, happy hacking! 🚀');
         process.exit(0);

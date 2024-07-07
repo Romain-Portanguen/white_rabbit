@@ -1,18 +1,23 @@
-import { execaCommand } from 'execa';
 import { resolve, basename } from 'path';
-import { promises as fs } from 'fs';
 import ora from 'ora';
+import CommandExecutorInterface from '../../@types/utils/command-executor';
+import FileSystemInterface from '../../@types/utils/file-system';
 
-async function createVueJsProject(projectDir: string, language: string): Promise<void> {
+async function createVueJsProject(
+    projectDir: string,
+    language: string,
+    commandExecutor: CommandExecutorInterface,
+    fileSystem: FileSystemInterface
+): Promise<void> {
     const absoluteProjectDir = resolve(projectDir);
     const projectName = basename(projectDir);
     const spinner = ora('Creating Vue.js project...').start();
 
     try {
-        await execaCommand(`npm init vue@latest ${projectName} -- --default`, { cwd: resolve(absoluteProjectDir, '..') });
+        await commandExecutor.execute(`npm init vue@latest ${projectName} -- --default`, { cwd: resolve(absoluteProjectDir, '..') });
 
         if (language === 'TypeScript') {
-            await execaCommand('npm install -D typescript @vue/tsconfig vue-tsc', { cwd: absoluteProjectDir });
+            await commandExecutor.execute('npm install -D typescript @vue/tsconfig vue-tsc', { cwd: absoluteProjectDir });
             
             const tsconfigContent = `{
                 "extends": "@vue/tsconfig/tsconfig.json",
@@ -38,8 +43,8 @@ async function createVueJsProject(projectDir: string, language: string): Promise
                 "include": ["vite.config.ts"]
             }`;
             
-            await fs.writeFile(resolve(absoluteProjectDir, 'tsconfig.json'), tsconfigContent);
-            await fs.writeFile(resolve(absoluteProjectDir, 'tsconfig.node.json'), tsconfigNodeContent);
+            await fileSystem.writeFile(resolve(absoluteProjectDir, 'tsconfig.json'), tsconfigContent);
+            await fileSystem.writeFile(resolve(absoluteProjectDir, 'tsconfig.node.json'), tsconfigNodeContent);
         }
 
         spinner.succeed('Vue.js project created successfully');
