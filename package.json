@@ -1,6 +1,6 @@
 {
   "name": "white-rabbit-cli",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "type": "module",
   "description": "A CLI tool to quickly initialize various types of projects.",
   "main": "dist/index.js",
@@ -8,9 +8,9 @@
     "white-rabbit": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc && node add-js-extensions.js && npm run minify",
+    "build": "tsc && node scripts/add-js-extensions.js && npm run minify",
     "clean": "depcheck && npm prune",
-    "minify": "node minify.mjs",
+    "minify": "node scripts/minify.mjs",
     "start": "node dist/index.js",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
