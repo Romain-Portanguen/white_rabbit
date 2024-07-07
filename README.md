@@ -68,24 +68,68 @@ White Rabbit automates project setup with TypeScript CLI tools, facilitating sea
 
 ```sh
 └── white_rabbit/
-    ├── .github
-    │   └── FUNDING.yml
-    ├── LICENSE
-    ├── README.md
-    ├── add-js-extensions.js
-    ├── jest.config.ts
-    ├── minify.mjs
-    ├── package-lock.json
-    ├── package.json
-    ├── src
-    │   ├── @types
-    │   ├── __tests__
-    │   ├── cli
-    │   ├── core
-    │   ├── index.ts
-    │   ├── public
-    │   └── utils
-    └── tsconfig.json
+   ├── LICENSE
+   ├── README.md
+   ├── add-js-extensions.js
+   ├── jest.config.ts
+   ├── minify.mjs
+   ├── package-lock.json
+   ├── package.json
+   ├── scripts
+   ├── src
+   │   ├── @types
+   │   │   ├── cli
+   │   │   │   └── question-manager.d.ts
+   │   │   ├── common
+   │   │   │   ├── answers.d.ts
+   │   │   │   └── inquirer-autocomplete-prompt.d.ts
+   │   │   ├── core
+   │   │   │   ├── application-builder.d.ts
+   │   │   │   ├── dependency-configurer.d.ts
+   │   │   │   ├── dependency-installer.d.ts
+   │   │   │   ├── git-initializer.d.ts
+   │   │   │   └── package-manager-checker.d.ts
+   │   │   └── utils
+   │   │       └── logger.d.ts
+   │   ├── __tests__
+   │   │   ├── cli
+   │   │   │   └── cli-manager.test.ts
+   │   │   ├── core
+   │   │   └── utils
+   │   ├── cli
+   │   │   ├── cli-manager.ts
+   │   │   └── questions
+   │   │       ├── common-questions.ts
+   │   │       ├── initial-questions.ts
+   │   │       └── question-manager.ts
+   │   ├── core
+   │   │   ├── application-builder.ts
+   │   │   ├── dependency-configurer.ts
+   │   │   ├── dependency-installer.ts
+   │   │   ├── git-initializer.ts
+   │   │   ├── package-manager-checker.ts
+   │   │   └── project-initializer
+   │   │       ├── angular-initializer.ts
+   │   │       ├── index.ts
+   │   │       ├── nodejs-initializer.ts
+   │   │       ├── react-initializer.ts
+   │   │       └── vuejs-initializer.ts
+   │   ├── index.ts
+   │   ├── public
+   │   │   └── assets
+   │   │       └── WhiteRabbit_Banner.png
+   │   └── utils
+   │       ├── configurations
+   │       │   ├── eslint-config.ts
+   │       │   ├── jest-config.ts
+   │       │   ├── mocha-config.ts
+   │       │   ├── prettier-config.ts
+   │       │   └── testing-library-config.ts
+   │       ├── dependencies.ts
+   │       ├── logger.ts
+   │       ├── path-suggestions.ts
+   │       └── summary.ts
+   └── tsconfig.json
 ```
 
 ---
