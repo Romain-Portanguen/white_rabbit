@@ -29,17 +29,6 @@ async function installDependencies(
     }
 }
 
-async function installDevDependencies(
-    commandExecutor: CommandExecutorInterface,
-    projectDir: string,
-    devDependencies: string[]
-) {
-    if (devDependencies.length > 0) {
-        const command = DEV_DEPENDENCY_INSTALL_CMD(devDependencies);
-        await commandExecutor.execute(command, { cwd: projectDir });
-    }
-}
-
 async function installAndConfigureTool(
     commandExecutor: CommandExecutorInterface,
     projectDir: string,
@@ -59,29 +48,29 @@ const toolConfigurations: { [key: string]: {
 }} = {
     ESLint: {
         condition: (tools: string[]) => tools.includes('ESLint'),
-        installCommand: `npm install eslint --save-dev`,
+        installCommand: DEV_DEPENDENCY_INSTALL_CMD(['eslint']),
         configFunction: generateESLintConfig,
     },
     Prettier: {
         condition: (tools: string[]) => tools.includes('Prettier'),
-        installCommand: `npm install prettier --save-dev`,
+        installCommand: DEV_DEPENDENCY_INSTALL_CMD(['prettier']),
         configFunction: generatePrettierConfig,
     },
     jest: {
         condition: (tools: string[]) => tools.includes('jest'),
-        installCommand: `npm install jest ts-jest @types/jest --save-dev`,
+        installCommand: DEV_DEPENDENCY_INSTALL_CMD(['jest', 'ts-jest', '@types/jest']),
         configFunction: generateJestConfig,
         configArgs: ['Node.js'],
     },
     mocha: {
         condition: (tools: string[]) => tools.includes('mocha'),
-        installCommand: `npm install mocha chai @types/mocha @types/chai ts-node --save-dev`,
+        installCommand: DEV_DEPENDENCY_INSTALL_CMD(['mocha', 'chai', '@types/mocha', '@types/chai', 'ts-node']),
         configFunction: generateMochaConfig,
         configArgs: ['Node.js'],
     },
     testingLibraryReact: {
         condition: (tools: string[]) => tools.includes('@testing-library/react'),
-        installCommand: `npm install @testing-library/react @testing-library/jest-dom @testing-library/user-event --save-dev`,
+        installCommand: DEV_DEPENDENCY_INSTALL_CMD(['@testing-library/react', '@testing-library/jest-dom', '@testing-library/user-event']),
         configFunction: generateTestingLibraryConfig,
         configArgs: ['Node.js'],
     },
@@ -120,8 +109,13 @@ export async function createNodeJsProject(
                 'ts-node-dev',
                 '@types/node',
             ];
-            await installDevDependencies(commandExecutor, absoluteProjectDir, tsDependencies);
-            await generateTypeScriptConfig(absoluteProjectDir, fileSystem);
+            await installAndConfigureTool(
+                commandExecutor,
+                absoluteProjectDir,
+                DEV_DEPENDENCY_INSTALL_CMD(tsDependencies),
+                generateTypeScriptConfig,
+                fileSystem
+            );
         }
 
         await installDependencies(commandExecutor, absoluteProjectDir, dependencies);
