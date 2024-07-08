@@ -15,6 +15,78 @@ import { generateTypeScriptConfig } from '../../utils/configurations/typescript-
 const USE_COLORS = true;
 const logger = new Logger(USE_COLORS);
 
+const DEPENDENCY_INSTALL_CMD = (deps: string[]) => `npm install ${deps.join(' ')}`;
+const DEV_DEPENDENCY_INSTALL_CMD = (deps: string[]) => `npm install --save-dev ${deps.join(' ')}`;
+
+async function installDependencies(
+    commandExecutor: CommandExecutorInterface,
+    projectDir: string,
+    dependencies: string[]
+) {
+    if (dependencies.length > 0) {
+        const command = DEPENDENCY_INSTALL_CMD(dependencies);
+        await commandExecutor.execute(command, { cwd: projectDir });
+    }
+}
+
+async function installDevDependencies(
+    commandExecutor: CommandExecutorInterface,
+    projectDir: string,
+    devDependencies: string[]
+) {
+    if (devDependencies.length > 0) {
+        const command = DEV_DEPENDENCY_INSTALL_CMD(devDependencies);
+        await commandExecutor.execute(command, { cwd: projectDir });
+    }
+}
+
+async function installAndConfigureTool(
+    commandExecutor: CommandExecutorInterface,
+    projectDir: string,
+    installCommand: string,
+    configFunction: (dir: string, ...args: any[]) => Promise<void>,
+    ...configArgs: any[]
+) {
+    await commandExecutor.execute(installCommand, { cwd: projectDir });
+    await configFunction(projectDir, ...configArgs);
+}
+
+const toolConfigurations: { [key: string]: {
+    condition: (tools: string[]) => boolean;
+    installCommand: string;
+    configFunction: (dir: string, ...args: any[]) => Promise<void>;
+    configArgs?: any[];
+}} = {
+    ESLint: {
+        condition: (tools: string[]) => tools.includes('ESLint'),
+        installCommand: `npm install eslint --save-dev`,
+        configFunction: generateESLintConfig,
+    },
+    Prettier: {
+        condition: (tools: string[]) => tools.includes('Prettier'),
+        installCommand: `npm install prettier --save-dev`,
+        configFunction: generatePrettierConfig,
+    },
+    jest: {
+        condition: (tools: string[]) => tools.includes('jest'),
+        installCommand: `npm install jest ts-jest @types/jest --save-dev`,
+        configFunction: generateJestConfig,
+        configArgs: ['Node.js'],
+    },
+    mocha: {
+        condition: (tools: string[]) => tools.includes('mocha'),
+        installCommand: `npm install mocha chai @types/mocha @types/chai ts-node --save-dev`,
+        configFunction: generateMochaConfig,
+        configArgs: ['Node.js'],
+    },
+    testingLibraryReact: {
+        condition: (tools: string[]) => tools.includes('@testing-library/react'),
+        installCommand: `npm install @testing-library/react @testing-library/jest-dom @testing-library/user-event --save-dev`,
+        configFunction: generateTestingLibraryConfig,
+        configArgs: ['Node.js'],
+    },
+};
+
 export async function createNodeJsProject(
     projectDir: string,
     projectName: string,
@@ -35,15 +107,11 @@ export async function createNodeJsProject(
         throw new Error('npm is not available');
     }
 
-    const command = `npm init -y`;
-
     try {
-        if (fileSystem.mkdir) {
-            await fileSystem.mkdir(absoluteProjectDir, { recursive: true });
-        }
+        await fileSystem.mkdir(absoluteProjectDir, { recursive: true });
         process.chdir(absoluteProjectDir);
 
-        await commandExecutor.execute(command, { cwd: absoluteProjectDir });
+        await commandExecutor.execute(`npm init -y`, { cwd: absoluteProjectDir });
 
         if (language === 'TypeScript') {
             const tsDependencies = [
@@ -52,45 +120,23 @@ export async function createNodeJsProject(
                 'ts-node-dev',
                 '@types/node',
             ];
-            const installTsDepsCommand = `npm install --save-dev ${tsDependencies.join(' ')}`;
-            await commandExecutor.execute(installTsDepsCommand, { cwd: absoluteProjectDir });
-
+            await installDevDependencies(commandExecutor, absoluteProjectDir, tsDependencies);
             await generateTypeScriptConfig(absoluteProjectDir, fileSystem);
         }
 
-        if (dependencies.length > 0) {
-            const installDepsCommand = `npm install ${dependencies.join(' ')}`;
-            await commandExecutor.execute(installDepsCommand, { cwd: absoluteProjectDir });
-        }
+        await installDependencies(commandExecutor, absoluteProjectDir, dependencies);
 
-        if (lintingTools.includes('ESLint')) {
-            const eslintCommand = `npm install eslint --save-dev`;
-            await commandExecutor.execute(eslintCommand, { cwd: absoluteProjectDir });
-            await generateESLintConfig(absoluteProjectDir);
-        }
-
-        if (formattingTools.includes('Prettier')) {
-            const prettierCommand = `npm install prettier --save-dev`;
-            await commandExecutor.execute(prettierCommand, { cwd: absoluteProjectDir });
-            await generatePrettierConfig(absoluteProjectDir);
-        }
-
-        if (testingTools.includes('jest')) {
-            const jestCommand = `npm install jest ts-jest @types/jest --save-dev`;
-            await commandExecutor.execute(jestCommand, { cwd: absoluteProjectDir });
-            await generateJestConfig(absoluteProjectDir, 'Node.js');
-        }
-
-        if (testingTools.includes('mocha')) {
-            const mochaCommand = `npm install mocha chai @types/mocha @types/chai ts-node --save-dev`;
-            await commandExecutor.execute(mochaCommand, { cwd: absoluteProjectDir });
-            await generateMochaConfig(absoluteProjectDir, 'Node.js');
-        }
-
-        if (testingTools.includes('@testing-library/react')) {
-            const testingLibraryCommand = `npm install @testing-library/react @testing-library/jest-dom @testing-library/user-event --save-dev`;
-            await commandExecutor.execute(testingLibraryCommand, { cwd: absoluteProjectDir });
-            await generateTestingLibraryConfig(absoluteProjectDir, 'Node.js');
+        for (const toolKey in toolConfigurations) {
+            const toolConfig = toolConfigurations[toolKey];
+            if (toolConfig.condition(lintingTools) || toolConfig.condition(formattingTools) || toolConfig.condition(testingTools)) {
+                await installAndConfigureTool(
+                    commandExecutor,
+                    absoluteProjectDir,
+                    toolConfig.installCommand,
+                    toolConfig.configFunction,
+                    ...(toolConfig.configArgs || [])
+                );
+            }
         }
 
     } finally {
@@ -109,7 +155,6 @@ export async function runNodeJsInit(
     const spinner = ora('Initializing Node.js project...').start();
 
     try {
-        spinner.stop();
         await createNodeJsProject(
             projectDir,
             projectName,
