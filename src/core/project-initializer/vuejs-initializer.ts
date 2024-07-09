@@ -2,6 +2,7 @@ import { resolve, basename } from 'path';
 import ora from 'ora';
 import CommandExecutorInterface from '../../@types/utils/command-executor';
 import FileSystemInterface from '../../@types/utils/file-system';
+import { generateTypeScriptConfig } from '../../utils/configurations/typescript-config';
 
 async function createVueJsProject(
     projectDir: string,
@@ -18,33 +19,7 @@ async function createVueJsProject(
 
         if (language === 'TypeScript') {
             await commandExecutor.execute('npm install -D typescript @vue/tsconfig vue-tsc', { cwd: absoluteProjectDir });
-            
-            const tsconfigContent = `{
-                "extends": "@vue/tsconfig/tsconfig.json",
-                "compilerOptions": {
-                    "composite": true,
-                    "verbatimModuleSyntax": true
-                },
-                "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-                "references": [
-                    {
-                        "path": "./tsconfig.node.json"
-                    }
-                ]
-            }`;
-            
-            const tsconfigNodeContent = `{
-                "compilerOptions": {
-                    "composite": true,
-                    "module": "ESNext",
-                    "moduleResolution": "Node",
-                    "allowSyntheticDefaultImports": true
-                },
-                "include": ["vite.config.ts"]
-            }`;
-            
-            await fileSystem.writeFile(resolve(absoluteProjectDir, 'tsconfig.json'), tsconfigContent);
-            await fileSystem.writeFile(resolve(absoluteProjectDir, 'tsconfig.node.json'), tsconfigNodeContent);
+            await generateTypeScriptConfig(absoluteProjectDir, fileSystem, true);
         }
 
         spinner.succeed('Vue.js project created successfully');
