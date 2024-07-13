@@ -1,12 +1,8 @@
-<p align="center">
-  <img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100" alt="project-logo">
-</p>
-<p align="center">
-    <h1 align="center">WHITE_RABBIT</h1>
-</p>
-<p align="center">
+![](https://github.com/Romain-Portanguen/white_rabbit/blob/2eb758d26e1d1502b0a02c34540b8ebbed7df806/src/public/assets/WhiteRabbit_Banner.png)
+
+<h3 align="center">
     <em>Unleash code magic, effortlessly optimize and deploy.</em>
-</p>
+</h3>
 <p align="center">
  <img src="https://img.shields.io/github/license/Romain-Portanguen/white_rabbit?style=plastic&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
  <img src="https://img.shields.io/github/last-commit/Romain-Portanguen/white_rabbit?style=plastic&logo=git&logoColor=white&color=0080ff" alt="last-commit">
